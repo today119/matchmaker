@@ -1460,18 +1460,15 @@
           return;
         }
 
-        // ── 대시보드 — Firebase + localStorage 병합
+        // ── 대시보드 — Firebase가 진실의 원천 (localStorage는 캐시 역할만)
         const ref = db.ref('tournaments');
         ref.on('value', snap=>{
           const fbData = snap.val() || {};
-          const lsData = lsGetAll();
-          const merged = {...lsData, ...fbData};
-          const list = Object.values(merged).filter(v=>v&&v.id).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+          const list = Object.values(fbData).filter(v=>v&&v.id).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
           setUserTournaments(list);
-          // localStorage에만 있는 데이터 Firebase에 동기화
-          Object.entries(lsData).forEach(([id,rec])=>{
-            if(!fbData[id]) db.ref('tournaments/'+id).set(rec).catch(()=>{});
-          });
+          // Firebase가 정상 연결됐으니 localStorage를 Firebase 스냅샷으로 교체
+          // (다른 기기에서 삭제한 대회가 좀비로 부활하는 것 방지)
+          try { localStorage.setItem(LS_KEY, JSON.stringify(fbData)); } catch(e) {}
           setLoading(false);
         }, err=>{
           console.warn('Firebase 실패, localStorage 사용:', err);
@@ -1508,6 +1505,8 @@
         if(view!=='active'||!currentId)return;
         // Firebase에서 온 업데이트면 auto-save 건너뜀 (덮어쓰기 방지)
         if(remoteUpdateRef.current){ remoteUpdateRef.current=false; return; }
+        // 다른 기기/탭에서 이 대회를 삭제했다면 부활시키지 않음
+        if(userTournaments.length > 0 && !userTournaments.find(t=>t.id===currentId)) return;
         if(saveTimerRef.current)clearTimeout(saveTimerRef.current);
         saveTimerRef.current=setTimeout(()=>{
           const record=buildRecord();
