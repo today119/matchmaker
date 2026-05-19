@@ -475,15 +475,15 @@
                       <td className="py-3 px-2 text-center text-blue-600 font-bold">{s.win}</td>
                       <td className="py-3 px-2 text-center text-slate-500">{s.draw}</td>
                       <td className="py-3 px-2 text-center text-rose-500">{s.loss}</td>
-                      {sm&&<td className="py-3 px-2 text-center text-slate-500 bg-slate-50/30">{s.gf}</td>}
-                      {sm&&<td className="py-3 px-2 text-center text-slate-500 bg-slate-50/30">{s.ga}</td>}
-                      {sm&&<td className="py-3 px-2 text-center font-bold text-slate-600 bg-slate-50/30">{s.gd>0?`+${s.gd}`:s.gd}</td>}
-                      <td className="py-3 px-2 text-center text-slate-700 font-medium">{s.pf}</td>
-                      <td className="py-3 px-2 text-center text-slate-500">{s.pa}</td>
-                      <td className="py-3 px-2 text-center font-bold text-slate-700">{s.pd>0?`+${s.pd}`:s.pd}</td>
-                      <td className="py-3 px-2 text-center text-blue-700 font-bold bg-blue-50/30">{s.pfAvg.toFixed(2)}</td>
-                      <td className="py-3 px-2 text-center text-blue-700 font-bold bg-blue-50/30">{s.ptsAvg.toFixed(2)}</td>
-                      <td className="py-3 px-2 text-right"><span className={`inline-block px-3 py-1 rounded-lg font-black text-sm ${lead?'bg-amber-100 text-amber-700':'bg-blue-50 text-blue-700'}`}>{s.pts}</span></td>
+                      {sm&&<td className="py-3 px-2 text-center text-slate-500 bg-slate-50/30">{s.gf||0}</td>}
+                      {sm&&<td className="py-3 px-2 text-center text-slate-500 bg-slate-50/30">{s.ga||0}</td>}
+                      {sm&&<td className="py-3 px-2 text-center font-bold text-slate-600 bg-slate-50/30">{(s.gd||0)>0?`+${s.gd||0}`:(s.gd||0)}</td>}
+                      <td className="py-3 px-2 text-center text-slate-700 font-medium">{s.pf||0}</td>
+                      <td className="py-3 px-2 text-center text-slate-500">{s.pa||0}</td>
+                      <td className="py-3 px-2 text-center font-bold text-slate-700">{(s.pd||0)>0?`+${s.pd||0}`:(s.pd||0)}</td>
+                      <td className="py-3 px-2 text-center text-blue-700 font-bold bg-blue-50/30">{(s.pfAvg||0).toFixed(2)}</td>
+                      <td className="py-3 px-2 text-center text-blue-700 font-bold bg-blue-50/30">{(s.ptsAvg||0).toFixed(2)}</td>
+                      <td className="py-3 px-2 text-right"><span className={`inline-block px-3 py-1 rounded-lg font-black text-sm ${lead?'bg-amber-100 text-amber-700':'bg-blue-50 text-blue-700'}`}>{s.pts||0}</span></td>
                     </tr>);
                   })}
                 </tbody>
@@ -550,6 +550,10 @@
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {groups.map(g=>{
             const isExp = !!expanded[g.id];
+            // 옛날에 저장된 데이터는 pfAvg 같은 새 필드 없음 → 즉석에서 다시 계산
+            const standings = (g.standings && g.standings.length>0 && g.standings[0].pfAvg !== undefined)
+              ? g.standings
+              : calculateStandings(g.participants||[], g.rounds||[], sm);
             return (
             <div key={g.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
               <div className="bg-slate-800 text-white px-4 py-3 flex justify-between items-center">
@@ -580,7 +584,7 @@
                       <th className="text-right pb-2">승점</th>
                     </tr></thead>
                     <tbody className="divide-y divide-slate-50">
-                      {g.standings?.map((s,i)=>(
+                      {standings?.map((s,i)=>(
                         <tr key={s.participantId} className={i<2?'bg-green-50/30':''}>
                           <td className="py-2 font-black text-slate-400">{i+1}</td>
                           <td className="py-2 font-bold text-slate-800 truncate max-w-[80px]">{s.name}</td>
@@ -588,12 +592,12 @@
                           <td className="py-2 text-center text-slate-500 font-bold">{s.win}</td>
                           {!isExp&&<td className="py-2 text-center text-slate-500">{s.draw}</td>}
                           <td className="py-2 text-center text-slate-500">{s.loss}</td>
-                          {isExp&&sm&&<td className="py-2 text-center font-medium text-slate-600 bg-slate-50/30">{s.gd>0?`+${s.gd}`:s.gd}</td>}
-                          {isExp&&<td className="py-2 text-center text-slate-700 font-medium">{s.pf}</td>}
-                          {isExp&&<td className="py-2 text-center text-slate-500">{s.pa}</td>}
-                          <td className="py-2 text-center font-medium text-slate-600">{(isExp?s.pd:s.gd)>0?`+${isExp?s.pd:s.gd}`:(isExp?s.pd:s.gd)}</td>
-                          {isExp&&<td className="py-2 text-center text-blue-700 font-bold bg-blue-50/30">{s.pfAvg.toFixed(2)}</td>}
-                          {isExp&&<td className="py-2 text-center text-blue-700 font-bold bg-blue-50/30">{s.ptsAvg.toFixed(2)}</td>}
+                          {isExp&&sm&&<td className="py-2 text-center font-medium text-slate-600 bg-slate-50/30">{(s.gd||0)>0?`+${s.gd||0}`:(s.gd||0)}</td>}
+                          {isExp&&<td className="py-2 text-center text-slate-700 font-medium">{s.pf||0}</td>}
+                          {isExp&&<td className="py-2 text-center text-slate-500">{s.pa||0}</td>}
+                          <td className="py-2 text-center font-medium text-slate-600">{(()=>{const v=isExp?(s.pd||0):(s.gd||0);return v>0?`+${v}`:v;})()}</td>
+                          {isExp&&<td className="py-2 text-center text-blue-700 font-bold bg-blue-50/30">{(s.pfAvg||0).toFixed(2)}</td>}
+                          {isExp&&<td className="py-2 text-center text-blue-700 font-bold bg-blue-50/30">{(s.ptsAvg||0).toFixed(2)}</td>}
                           <td className="py-2 text-right font-black text-blue-600">{s.pts}</td>
                         </tr>
                       ))}
