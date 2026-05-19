@@ -71,9 +71,19 @@
       try { const d=lsGetAll(); delete d[id]; localStorage.setItem(LS_KEY,JSON.stringify(d)); } catch(e) {}
     };
 
+    // Firebase 연결 상태 — 한번이라도 저장 실패하면 사용자에게 알림
+    window.__fbWarned = false;
     const fbSave = async (id, record) => {
       lsSave(id, record); // 즉시 localStorage에 저장
-      try { await db.ref('tournaments/'+id).set(record); } catch(e) { console.warn('Firebase 저장 실패 (localStorage 백업 사용):', e); }
+      try {
+        await db.ref('tournaments/'+id).set(record);
+      } catch(e) {
+        console.error('🔥 Firebase 저장 실패:', e);
+        if (!window.__fbWarned) {
+          window.__fbWarned = true;
+          alert('⚠️ Firebase에 저장이 실패하고 있습니다.\n\n원인 가능성:\n1. Firebase Realtime DB 규칙(.read/.write)이 막혀있음\n2. 인터넷 연결 문제\n\n임시로 이 브라우저(localStorage)에는 저장되지만, 다른 기기에서는 안 보입니다.\n\n에러: ' + (e.message || e.toString()));
+        }
+      }
     };
     const fbDelete = async (id) => {
       lsDelete(id);
@@ -118,15 +128,27 @@
       if (!window.GAS_API_URL || window.GAS_API_URL.includes('PASTE_YOUR')) {
         throw new Error('GAS_API_URL이 설정되지 않았습니다. index.html 상단에서 본인 GAS 배포 URL을 입력하세요.');
       }
-      const res = await fetch(window.GAS_API_URL, {
-        method: 'POST',
-        // Content-Type을 명시하지 않아야 simple request로 처리됨
-        body: JSON.stringify({ action, ...payload }),
-        redirect: 'follow',
-      });
-      if (!res.ok) throw new Error('GAS API HTTP ' + res.status);
-      const data = await res.json();
-      if (data && data.success === false) throw new Error(data.error || 'Unknown error');
+      let res;
+      try {
+        res = await fetch(window.GAS_API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action, ...payload }),
+          redirect: 'follow',
+        });
+      } catch (e) {
+        throw new Error('네트워크 오류 — GAS URL이 잘못됐거나 인터넷 연결을 확인하세요. (' + e.message + ')');
+      }
+      if (!res.ok) throw new Error('GAS HTTP ' + res.status + ' — 배포가 "모든 사용자" 권한인지 확인하세요.');
+      const text = await res.text();
+      // JSON 파싱 실패 = HTML(로그인 페이지 등) 응답일 가능성
+      let data;
+      try { data = JSON.parse(text); }
+      catch (e) {
+        const preview = text.substring(0, 200);
+        console.error('[gasCall] JSON 파싱 실패. 응답 내용:', preview);
+        throw new Error('GAS 응답이 JSON이 아닙니다. 배포 권한을 "모든 사용자"로 다시 설정하고 새 버전으로 재배포하세요. (응답: ' + preview.substring(0, 100) + '...)');
+      }
+      if (data && data.success === false) throw new Error(data.error || 'GAS 내부 오류');
       return data;
     };
 
@@ -1922,9 +1944,10 @@
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <button onClick={()=>{
+                          if(!config.name){alert('먼저 대회명을 입력하세요.');return;}
                           gasCall('createParticipantSheet',{tournamentName:config.name})
                             .then(r=>alert(`✅ "${r.sheetName}" 시트가 생성됐습니다!\n스프레드시트를 열어 명단을 입력한 뒤\n"시트에서 불러오기"를 눌러주세요.`))
-                            .catch(()=>alert('시트 생성에 실패했습니다.'));
+                            .catch(e=>{console.error('[createSheet]',e);alert('❌ 시트 생성 실패\n\n'+e.message);});
                         }} className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl font-black text-xs hover:bg-emerald-700 min-w-[100px]">
                           📋 명단 시트 만들기
                         </button>
@@ -1946,7 +1969,7 @@
                               setParticipants(newParts);
                               alert(`✅ ${newParts.length}명 불러오기 완료!\n남: ${newParts.filter(p=>p.gender==='M').length}명 / 여: ${newParts.filter(p=>p.gender==='F').length}명`);
                             })
-                            .catch(()=>alert('불러오기에 실패했습니다.'));
+                            .catch(e=>{console.error('[loadSheet]',e);alert('❌ 불러오기 실패\n\n'+e.message);});
                         }} className="flex-1 py-2.5 bg-white text-emerald-700 border-2 border-emerald-300 rounded-xl font-black text-xs hover:bg-emerald-50 min-w-[100px]">
                           ⬇️ 시트에서 불러오기
                         </button>
