@@ -638,24 +638,78 @@
       const isTeam=config.matchType==='team';
       const tf=TEAM_FORMATS.find(f=>f.id===config.teamFormat);
       const nm=tf?.matches||3; const nr=config.teamRounds||1;
+      const isSets = isSetsGame(config.sport);
+      const totalSets = config.sets || 3;
+      const winSets = Math.ceil(totalSets / 2);
       // 문자열로 보관 → 사용자가 0을 지우고 새로 입력 가능
       const [s1,setS1]=useState(String(match.scoreHome??0));
       const [s2,setS2]=useState(String(match.scoreAway??0));
       const [sub,setSub]=useState(Array.from({length:nr},()=>Array.from({length:nm},()=>({s1:'0',s2:'0'}))));
-      useEffect(()=>{setS1(String(match.scoreHome??0));setS2(String(match.scoreAway??0));},[match]);
+      // 세트별 점수 — 세트제 종목용
+      const initSets = () => {
+        if(match.setScores && match.setScores.length>0){
+          // 기존 데이터에서 복원
+          return Array.from({length:totalSets},(_,i)=>{
+            const s=match.setScores[i];
+            return s? {h:String(s.h), a:String(s.a)} : {h:'', a:''};
+          });
+        }
+        return Array.from({length:totalSets},()=>({h:'',a:''}));
+      };
+      const [setRows, setSetRows] = useState(initSets());
+      useEffect(()=>{
+        setS1(String(match.scoreHome??0));
+        setS2(String(match.scoreAway??0));
+        setSetRows(initSets());
+      },[match]);
+
+      // 세트 점수에서 자동으로 세트 승수 계산
+      const computedFromSets = () => {
+        let wh=0, wa=0;
+        const valid = [];
+        setRows.forEach(r=>{
+          const h=parseInt(r.h), a=parseInt(r.a);
+          if(isNaN(h)||isNaN(a)) return; // 비어있는 세트 무시
+          if(h===a) return; // 무승부 세트 무시
+          valid.push({h,a});
+          if(h>a) wh++; else wa++;
+        });
+        return {wh, wa, valid};
+      };
+
       const applyTeam=()=>{
         let w1=0,w2=0;
         sub.forEach(r=>{let m1=0,m2=0;r.forEach(m=>{const a=parseInt(m.s1)||0,b=parseInt(m.s2)||0;if(a>b)m1++;else if(b>a)m2++;});if(m1>m2)w1++;else if(m2>m1)w2++;});
         setS1(String(w1));setS2(String(w2));
       };
       const handleSave=()=>{
-        onSave(match.id, parseInt(s1)||0, parseInt(s2)||0);
+        if(isSets){
+          const {wh, wa, valid} = computedFromSets();
+          if(valid.length===0){alert('최소 한 세트 이상의 점수를 입력하세요.');return;}
+          if(wh<winSets && wa<winSets){
+            if(!window.confirm(`아직 경기가 종료되지 않았습니다.\n현재 ${wh}:${wa} (${winSets}세트 선승)\n그래도 저장하시겠습니까?`))return;
+          }
+          onSave(match.id, wh, wa, valid);
+        } else {
+          onSave(match.id, parseInt(s1)||0, parseInt(s2)||0, null);
+        }
       };
+      const updateSetRow = (idx, side, val) => {
+        setSetRows(prev=>{
+          const next=[...prev];
+          next[idx]={...next[idx],[side]:val};
+          return next;
+        });
+      };
+
       return (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[100] flex items-center justify-center p-4">
           <div className="bg-white rounded-[2rem] w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
             <div className="bg-slate-800 p-6 text-white text-center shrink-0">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">League Match {isTeam&&`(${tf?.name})`}</p>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                League Match {isTeam&&`(${tf?.name})`}
+                {isSets&&` · ${totalSets===1?'단판제':`${totalSets}판 ${winSets}선승`}`}
+              </p>
               <h3 className="text-xl font-black italic">점수 입력</h3>
             </div>
             <div className="p-8 space-y-6 overflow-y-auto custom-scrollbar">
@@ -684,21 +738,69 @@
                   ))}
                 </div>
               )}
-              <div className="flex items-center justify-between gap-4">
-                {[{p:match.home,s:s1,setS:setS1},{p:match.away,s:s2,setS:setS2}].map((side,i)=>(
-                  <div key={i} className="flex-1 text-center space-y-3">
-                    <div className="text-xs font-black text-slate-500 truncate uppercase">{side.p.name}</div>
-                    <input type="number" inputMode="numeric" value={side.s} onFocus={e=>e.target.select()} onChange={e=>side.setS(e.target.value)} className="w-full text-center text-4xl font-black py-4 border-b-4 border-slate-100 focus:border-blue-500 outline-none"/>
-                    <span className="text-[10px] font-black text-slate-400 uppercase">{isTeam?'Rounds Won':'Score'}</span>
+
+              {isSets ? (
+                /* 세트제 점수 입력 */
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-xs font-black text-slate-500 px-2">
+                    <span className="flex-1 text-center truncate">{match.home.name}</span>
+                    <span className="w-16 text-center text-slate-300">vs</span>
+                    <span className="flex-1 text-center truncate">{match.away.name}</span>
                   </div>
-                ))}
-                <div className="text-2xl font-black text-slate-200">:</div>
-              </div>
+                  <div className="space-y-2">
+                    {setRows.map((row, idx)=>{
+                      const h=parseInt(row.h), a=parseInt(row.a);
+                      const valid = !isNaN(h)&&!isNaN(a)&&h!==a;
+                      const homeWin = valid && h>a;
+                      const awayWin = valid && a>h;
+                      return (
+                        <div key={idx} className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                          <span className="text-[10px] font-black text-slate-400 uppercase w-10">SET {idx+1}</span>
+                          <input type="number" inputMode="numeric" value={row.h} onFocus={e=>e.target.select()}
+                            onChange={e=>updateSetRow(idx,'h',e.target.value)}
+                            placeholder="0"
+                            className={`flex-1 text-center text-2xl font-black py-2 border-b-2 outline-none transition-colors ${homeWin?'border-blue-500 text-blue-700 bg-blue-50':'border-slate-200 focus:border-blue-300'}`}/>
+                          <span className="text-slate-300 font-black">:</span>
+                          <input type="number" inputMode="numeric" value={row.a} onFocus={e=>e.target.select()}
+                            onChange={e=>updateSetRow(idx,'a',e.target.value)}
+                            placeholder="0"
+                            className={`flex-1 text-center text-2xl font-black py-2 border-b-2 outline-none transition-colors ${awayWin?'border-rose-500 text-rose-700 bg-rose-50':'border-slate-200 focus:border-rose-300'}`}/>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {/* 합계 표시 */}
+                  {(()=>{
+                    const {wh, wa} = computedFromSets();
+                    const winner = wh>=winSets ? 'home' : wa>=winSets ? 'away' : null;
+                    return (
+                      <div className="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
+                        <span className={`flex-1 text-center font-black text-lg ${winner==='home'?'text-green-400':''}`}>{wh}</span>
+                        <span className="text-slate-500 text-xs uppercase font-black">세트 승수</span>
+                        <span className={`flex-1 text-center font-black text-lg ${winner==='away'?'text-green-400':''}`}>{wa}</span>
+                      </div>
+                    );
+                  })()}
+                </div>
+              ) : (
+                /* 일반 점수 입력 (축구/농구 등) */
+                <div className="flex items-center justify-between gap-4">
+                  {[{p:match.home,s:s1,setS:setS1},{p:match.away,s:s2,setS:setS2}].map((side,i)=>(
+                    <div key={i} className="flex-1 text-center space-y-3">
+                      <div className="text-xs font-black text-slate-500 truncate uppercase">{side.p.name}</div>
+                      <input type="number" inputMode="numeric" value={side.s} onFocus={e=>e.target.select()} onChange={e=>side.setS(e.target.value)} className="w-full text-center text-4xl font-black py-4 border-b-4 border-slate-100 focus:border-blue-500 outline-none"/>
+                      <span className="text-[10px] font-black text-slate-400 uppercase">{isTeam?'Rounds Won':'Score'}</span>
+                    </div>
+                  ))}
+                  <div className="text-2xl font-black text-slate-200">:</div>
+                </div>
+              )}
+
               <div className="flex flex-col gap-2 pt-4">
                 <button onClick={handleSave} className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black hover:bg-blue-700 shadow-lg shadow-blue-100">결과 저장</button>
                 <div className="flex gap-2">
                   <button onClick={onClose} className="flex-1 py-3 bg-slate-100 text-slate-500 rounded-xl font-bold">닫기</button>
-                  {match.status==='completed'&&<button onClick={()=>onSave(match.id,0,0,true)} className="flex-1 py-3 bg-red-50 text-red-500 rounded-xl font-bold hover:bg-red-100">결과 초기화</button>}
+                  {match.status==='completed'&&<button onClick={()=>onSave(match.id,0,0,null,true)} className="flex-1 py-3 bg-red-50 text-red-500 rounded-xl font-bold hover:bg-red-100">결과 초기화</button>}
                 </div>
               </div>
             </div>
@@ -1725,19 +1827,26 @@
         });
         autoAdvanceByes(updated,'k');return updated;
       };
-      const handleUpdateLeagueMatch=(mid,s1,s2,isReset=false)=>{
+      const handleUpdateLeagueMatch=(mid,s1,s2,setScores=null,isReset=false)=>{
         if(!selectedLeagueMatch)return;
         const{groupId}=selectedLeagueMatch;
+        const buildUpdate = (m) => {
+          if(m.id!==mid) return m;
+          if(isReset) return {...m,scoreHome:0,scoreAway:0,setScores:null,status:'pending'};
+          const upd = {...m,scoreHome:s1,scoreAway:s2,status:'completed'};
+          if(setScores) upd.setScores = setScores;
+          return upd;
+        };
         if(groupId){
           const ug=generatedGroups.map(g=>{
             if(g.id!==groupId)return g;
-            const ur=g.rounds.map(r=>({...r,matches:r.matches.map(m=>m.id===mid?(isReset?{...m,scoreHome:undefined,scoreAway:undefined,status:'pending'}:{...m,scoreHome:s1,scoreAway:s2,status:'completed'}):m)}));
+            const ur=g.rounds.map(r=>({...r,matches:r.matches.map(buildUpdate)}));
             return{...g,rounds:ur,standings:calculateStandings(g.participants,ur)};
           });
           setGeneratedGroups(ug);
           if(config.tournamentType===TType.GROUP_KNOCKOUT)setGeneratedMatches([...syncKnockout(ug)]);
         }else{
-          setGeneratedLeague(prev=>prev.map(r=>({...r,matches:r.matches.map(m=>m.id===mid?(isReset?{...m,scoreHome:undefined,scoreAway:undefined,status:'pending'}:{...m,scoreHome:s1,scoreAway:s2,status:'completed'}):m)})));
+          setGeneratedLeague(prev=>prev.map(r=>({...r,matches:r.matches.map(buildUpdate)})));
         }
         setSelectedLeagueMatch(null);
       };
