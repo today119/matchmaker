@@ -586,30 +586,48 @@
     //  GroupStageView
     // ================================================================
     const GroupStageView = ({ groups, onMatchClick, onScoreboardLink, config }) => {
-      const [expanded, setExpanded] = useState({});
+      const [expanded, setExpanded]   = useState({}); // 자세히/간단히 (컬럼 수)
+      const [standingsCollapsed, setStandingsCollapsed] = useState({}); // 순위표 접기
       const sm = isSetsGame(config?.sport);
       const toggle = (gid) => setExpanded(prev=>({...prev,[gid]:!prev[gid]}));
+      const toggleStandings = (gid) => setStandingsCollapsed(prev=>({...prev,[gid]:!prev[gid]}));
       return (
       <div className="space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {groups.map(g=>{
             const isExp = !!expanded[g.id];
+            const stClosed = !!standingsCollapsed[g.id];
             // 옛날에 저장된 데이터는 pfAvg 같은 새 필드 없음 → 즉석에서 다시 계산
             const standings = (g.standings && g.standings.length>0 && g.standings[0].pfAvg !== undefined)
               ? g.standings
               : calculateStandings(g.participants||[], g.rounds||[], sm);
+            const leader = standings[0];
             return (
             <div key={g.id} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
               <div className="bg-slate-800 text-white px-4 py-3 flex justify-between items-center">
                 <h4 className="font-bold text-lg">{g.name} 예선</h4>
                 <div className="flex items-center gap-2">
-                  <button onClick={()=>toggle(g.id)} className="text-[12px] font-black bg-slate-700 hover:bg-slate-600 text-slate-300 px-2 py-1 rounded">
-                    {isExp?'간단히':'자세히'}
+                  <button onClick={()=>toggleStandings(g.id)} className="text-[12px] font-black bg-slate-700 hover:bg-slate-600 text-slate-300 px-2 py-1 rounded">
+                    {stClosed?'▼ 순위 펼치기':'▲ 순위 접기'}
                   </button>
+                  {!stClosed&&(
+                    <button onClick={()=>toggle(g.id)} className="text-[12px] font-black bg-slate-700 hover:bg-slate-600 text-slate-300 px-2 py-1 rounded">
+                      {isExp?'간단히':'자세히'}
+                    </button>
+                  )}
                   <span className="text-sm font-black text-slate-400 bg-slate-700 px-2 py-0.5 rounded">LEAGUE</span>
                 </div>
               </div>
               <div className="p-4 flex-1">
+                {/* 순위 접혔을 때: 1위만 표시 */}
+                {stClosed && leader && (
+                  <div className="mb-4 px-3 py-2 bg-amber-50 rounded-lg border border-amber-200 flex items-center gap-2 text-sm">
+                    <span className="text-amber-700">👑</span>
+                    <span className="font-black text-amber-900">1위: {leader.name}</span>
+                    <span className="text-amber-600 font-bold ml-auto">{leader.pts||0}점</span>
+                  </div>
+                )}
+                {!stClosed && (
                 <div className="overflow-x-auto mb-6">
                   <table className={`w-full ${isExp?'text-[12px]':'text-[13px] sm:text-sm'}`}>
                     <thead><tr className="text-slate-400 border-b border-slate-100 uppercase font-black">
@@ -648,6 +666,7 @@
                     </tbody>
                   </table>
                 </div>
+                )}
                 <GroupScheduleBlock group={g} onMatchClick={onMatchClick} onScoreboardLink={onScoreboardLink} />
               </div>
               <div className="bg-slate-50 px-4 py-2 text-[10px] text-slate-400 font-bold uppercase flex gap-4 border-t border-slate-100">
@@ -686,7 +705,7 @@
             </button>
           </div>
           {!collapsed&&(
-            <div className="max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar space-y-1">
+            <div className="space-y-1.5">
               {(group.rounds||[]).map(r=>r.matches.map(m=>{
                 if(m.home.id.startsWith('bye')||m.away.id.startsWith('bye')) return null;
                 const done=m.status==='completed';
@@ -1955,18 +1974,16 @@
         setView('scoreboard');
       };
 
-      // 🚫 출결 토글 — 참가자의 absent 상태 변경 (activeParticipants + 조 안의 participants + 매치의 home/away)
+      // 🚫 출결 토글 — 참가자의 absent 상태 변경 (모든 곳 일관 반영)
       const handleToggleAttendance=(pid)=>{
-        // activeParticipants 업데이트
-        setActiveParticipants(prev=>prev.map(p=>p.id===pid?{...p,absent:!p.absent}:p));
-        // 조별 모드: 각 조의 participants 안에서도 갱신 + 매치의 home/away도 갱신 (UI 빠른 반영)
+        const flip = (p) => p.id===pid ? {...p, absent: !p.absent} : p;
+        // participants (대시보드/명단 원본)
+        setParticipants(prev=>prev.map(flip));
+        // activeParticipants
+        setActiveParticipants(prev=>prev.map(flip));
+        // 조별 모드: 각 조의 participants + 매치의 home/away
         setGeneratedGroups(prev=>prev.map(g=>{
-          let changed=false;
-          const newP=(g.participants||[]).map(p=>{
-            if(p.id===pid){changed=true;return{...p,absent:!p.absent};}
-            return p;
-          });
-          // 매치의 home/away에 absent 반영
+          const newP=(g.participants||[]).map(flip);
           const newRounds=(g.rounds||[]).map(r=>({
             ...r,
             matches:(r.matches||[]).map(m=>({
@@ -1975,9 +1992,9 @@
               away: m.away.id===pid?{...m.away,absent:!m.away.absent}:m.away
             }))
           }));
-          return changed?{...g,participants:newP,rounds:newRounds}:g;
+          return {...g, participants:newP, rounds:newRounds};
         }));
-        // 풀리그 모드: generatedLeague의 매치들도 갱신
+        // 풀리그 모드: 매치들 갱신
         setGeneratedLeague(prev=>prev.map(r=>({
           ...r,
           matches:(r.matches||[]).map(m=>({
@@ -2182,7 +2199,13 @@
                 {saving&&<span className="text-[12px] font-black text-slate-400 animate-pulse uppercase">저장 중...</span>}
                 {view==='active'&&(
                   <>
-                    {<button onClick={()=>setShowAttendance(true)} className="bg-amber-500 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-amber-600 shadow-md active:scale-95">🚫 출결{activeParticipants.filter(p=>p.absent).length>0?` (${activeParticipants.filter(p=>p.absent).length})`:''}</button>}
+                    {<button onClick={()=>setShowAttendance(true)} className="bg-amber-500 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-amber-600 shadow-md active:scale-95">🚫 출결{(()=>{
+                      const ids=new Set();
+                      const collect=(arr)=>(arr||[]).forEach(p=>{if(p&&p.absent&&!p.id.startsWith('bye'))ids.add(p.id);});
+                      collect(participants); collect(activeParticipants);
+                      (generatedGroups||[]).forEach(g=>collect(g.participants));
+                      return ids.size>0?` (${ids.size})`:'';
+                    })()}</button>}
                     {<button onClick={handleShareCurrent} className="bg-blue-600 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-blue-700 shadow-md active:scale-95">🔗 공유</button>}
                     {<button onClick={handleExportToSheets} className="bg-emerald-600 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-emerald-700 shadow-md active:scale-95">📊 시트 내보내기</button>}
                     <button onClick={downloadCSV} className="bg-slate-900 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-slate-800 shadow-md active:scale-95">💾 CSV</button>
@@ -2441,7 +2464,23 @@
           {/* Modals */}
           {selectedMatch&&<MatchResultModal match={selectedMatch} config={config} onClose={()=>setSelectedMatch(null)} onSave={handleUpdateMatch}/>}
           {selectedLeagueMatch&&<LeagueMatchModal match={selectedLeagueMatch.match} config={config} onClose={()=>setSelectedLeagueMatch(null)} onSave={handleUpdateLeagueMatch}/>}
-          {showAttendance&&<AttendanceModal participants={activeParticipants} onToggle={handleToggleAttendance} onClose={()=>setShowAttendance(false)}/>}
+          {showAttendance&&<AttendanceModal participants={(()=>{
+            // 출결 대상 = 활성 참가자 (조별이면 모든 조의 participants, 풀리그면 activeParticipants)
+            const pool = [];
+            const seen = new Set();
+            const addAll = (arr) => (arr||[]).forEach(p=>{
+              if(!p||!p.id) return;
+              if(p.id.startsWith('bye')) return;
+              if(seen.has(p.id)) return;
+              seen.add(p.id); pool.push(p);
+            });
+            if(generatedGroups && generatedGroups.length>0){
+              generatedGroups.forEach(g=>addAll(g.participants));
+            }
+            addAll(activeParticipants);
+            addAll(participants);
+            return pool;
+          })()} onToggle={handleToggleAttendance} onClose={()=>setShowAttendance(false)}/>}
         </div>
       );
     };
