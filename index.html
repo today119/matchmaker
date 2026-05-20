@@ -361,7 +361,7 @@
               const rm=matches.filter(m=>m.round===r);
               return (
                 <div key={r} className="flex flex-col" style={{minWidth:'240px'}}>
-                  <h4 className="text-center font-black text-slate-400 mb-6 uppercase tracking-[0.2em] text-[10px] bg-slate-100 py-1.5 rounded-full border border-slate-200">
+                  <h4 className="text-center font-black text-slate-400 mb-6 uppercase tracking-[0.2em] text-[12px] bg-slate-100 py-1.5 rounded-full border border-slate-200">
                     {r===maxR?'Final':`Round ${r}`}
                   </h4>
                   <div className={`flex flex-col justify-center flex-1 ${gapClass(r)}`}>
@@ -379,8 +379,8 @@
                             {/* P1 */}
                             <div className={`px-4 py-3 flex justify-between items-center ${p1w?'bg-green-50':(match.participant1?.isSeeded?'bg-amber-50/50':'')}`}>
                               <div className="flex items-center gap-2 overflow-hidden">
-                                {match.participant1?.isSeeded&&!p1ph&&<span className="text-[8px] bg-amber-500 text-white font-black px-1 py-0.5 rounded">S{match.participant1.seedRank}</span>}
-                                <span className={`text-sm font-bold truncate ${p1w?'text-green-700 font-black':(match.participant1?(p1ph?'text-slate-300 italic font-medium':'text-slate-800'):'text-slate-300 italic')}`}>
+                                {match.participant1?.isSeeded&&!p1ph&&<span className="text-[10px] bg-amber-500 text-white font-black px-1 py-0.5 rounded">S{match.participant1.seedRank}</span>}
+                                <span className={`text-base font-bold truncate ${p1w?'text-green-700 font-black':(match.participant1?(p1ph?'text-slate-300 italic font-medium':'text-slate-800'):'text-slate-300 italic')}`}>
                                   {match.participant1?match.participant1.name:'TBD'}
                                 </span>
                               </div>
@@ -389,8 +389,8 @@
                             {/* P2 */}
                             <div className={`px-4 py-3 flex justify-between items-center ${p2w?'bg-green-50':(match.participant2?.isSeeded?'bg-amber-50/50':'')}`}>
                               <div className="flex items-center gap-2 overflow-hidden">
-                                {match.participant2?.isSeeded&&!p2ph&&<span className="text-[8px] bg-amber-500 text-white font-black px-1 py-0.5 rounded">S{match.participant2.seedRank}</span>}
-                                <span className={`text-sm font-bold truncate ${p2w?'text-green-700 font-black':(match.participant2?(p2ph?'text-slate-300 italic font-medium':'text-slate-800'):(match.round===1?'Bye':'text-slate-300 italic'))}`}>
+                                {match.participant2?.isSeeded&&!p2ph&&<span className="text-[10px] bg-amber-500 text-white font-black px-1 py-0.5 rounded">S{match.participant2.seedRank}</span>}
+                                <span className={`text-base font-bold truncate ${p2w?'text-green-700 font-black':(match.participant2?(p2ph?'text-slate-300 italic font-medium':'text-slate-800'):(match.round===1?'Bye':'text-slate-300 italic'))}`}>
                                   {match.participant2?match.participant2.name:(match.round===1?'Bye':'TBD')}
                                 </span>
                               </div>
@@ -400,7 +400,7 @@
                           {/* 📺 스코어보드 링크 */}
                           {onScoreboardLink&&!bye&&(
                             <button onClick={()=>onScoreboardLink(match.id)}
-                              className="w-7 h-full min-h-[80px] bg-slate-100 hover:bg-purple-100 text-slate-400 hover:text-purple-600 rounded-xl flex items-center justify-center text-sm transition-all shrink-0" title="스코어보드 링크">
+                              className="w-7 h-full min-h-[80px] bg-slate-100 hover:bg-purple-100 text-slate-400 hover:text-purple-600 rounded-xl flex items-center justify-center text-base transition-all shrink-0" title="스코어보드 링크">
                               📺
                             </button>
                           )}
@@ -417,12 +417,12 @@
                   <div className="bg-gradient-to-br from-amber-50 to-white border-2 border-amber-200 rounded-[2rem] p-5 shadow-lg flex flex-col items-center relative overflow-hidden">
                     <div className="absolute -top-1 -right-1 opacity-10 text-4xl transform rotate-12">🏆</div>
                     <span className="text-4xl mb-2">🥇</span>
-                    <p className="text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">Champion</p>
+                    <p className="text-[12px] font-black text-amber-600 uppercase tracking-widest mb-1">Champion</p>
                     <p className="text-lg font-black text-slate-900 text-center leading-tight break-all">{winner.name}</p>
                   </div>
                   <div className="bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
                     <span className="text-2xl">🥈</span>
-                    <div><p className="text-[8px] font-black text-slate-400 uppercase">Runner Up</p><p className="text-sm font-bold text-slate-700 truncate">{runnerUp?.name||'TBD'}</p></div>
+                    <div><p className="text-[10px] font-black text-slate-400 uppercase">Runner Up</p><p className="text-base font-bold text-slate-700 truncate">{runnerUp?.name||'TBD'}</p></div>
                   </div>
                 </div>
               </div>
@@ -444,11 +444,11 @@
           <section className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-black text-slate-900 italic flex items-center gap-2"><span className="text-2xl">📊</span> 리그 순위 현황</h3>
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full border border-slate-100">Live Standings</span>
+              <span className="text-[12px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full border border-slate-100">Live Standings</span>
             </div>
             <div className="overflow-x-auto custom-scrollbar">
-              <table className="w-full text-sm min-w-[800px]">
-                <thead><tr className="text-slate-400 border-b border-slate-100 uppercase font-black text-[10px]">
+              <table className="w-full text-base min-w-[800px]">
+                <thead><tr className="text-slate-400 border-b border-slate-100 uppercase font-black text-[12px]">
                   <th className="text-left py-3 px-2 w-12">순위</th>
                   <th className="text-left py-3 px-2">팀/참가자</th>
                   <th className="text-center py-3 px-2">경</th>
@@ -469,8 +469,8 @@
                   {standings.map((s,i)=>{
                     const lead=i===0&&s.played>0;
                     return (<tr key={s.participantId} className={`transition-colors ${lead?'bg-amber-50/50':'hover:bg-slate-50/50'}`}>
-                      <td className="py-3 px-2"><div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black ${i===0?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>{i+1}</div></td>
-                      <td className="py-3 px-2"><div className="flex items-center gap-2">{lead&&<span className="text-xs">👑</span>}<span className={`font-bold ${lead?'text-amber-900':'text-slate-700'}`}>{s.name}</span></div></td>
+                      <td className="py-3 px-2"><div className={`w-6 h-6 rounded-full flex items-center justify-center text-[12px] font-black ${i===0?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>{i+1}</div></td>
+                      <td className="py-3 px-2"><div className="flex items-center gap-2">{lead&&<span className="text-sm">👑</span>}<span className={`font-bold ${lead?'text-amber-900':'text-slate-700'}`}>{s.name}</span></div></td>
                       <td className="py-3 px-2 text-center text-slate-500 font-medium">{s.played}</td>
                       <td className="py-3 px-2 text-center text-blue-600 font-bold">{s.win}</td>
                       <td className="py-3 px-2 text-center text-slate-500">{s.draw}</td>
@@ -483,46 +483,90 @@
                       <td className="py-3 px-2 text-center font-bold text-slate-700">{(s.pd||0)>0?`+${s.pd||0}`:(s.pd||0)}</td>
                       <td className="py-3 px-2 text-center text-blue-700 font-bold bg-blue-50/30">{(s.pfAvg||0).toFixed(2)}</td>
                       <td className="py-3 px-2 text-center text-blue-700 font-bold bg-blue-50/30">{(s.ptsAvg||0).toFixed(2)}</td>
-                      <td className="py-3 px-2 text-right"><span className={`inline-block px-3 py-1 rounded-lg font-black text-sm ${lead?'bg-amber-100 text-amber-700':'bg-blue-50 text-blue-700'}`}>{s.pts||0}</span></td>
+                      <td className="py-3 px-2 text-right"><span className={`inline-block px-3 py-1 rounded-lg font-black text-base ${lead?'bg-amber-100 text-amber-700':'bg-blue-50 text-blue-700'}`}>{s.pts||0}</span></td>
                     </tr>);
                   })}
                 </tbody>
               </table>
             </div>
-            <div className="mt-6 flex items-center gap-4 flex-wrap text-[10px] font-bold text-slate-400 border-t border-slate-50 pt-4">
+            <div className="mt-6 flex items-center gap-4 flex-wrap text-[12px] font-bold text-slate-400 border-t border-slate-50 pt-4">
               <div className="flex items-center gap-1.5"><div className="w-2 h-2 bg-amber-500 rounded-full"></div>현재 1위</div>
               <p>※ 순위: 승점 &gt; 득실차 &gt; 다득점</p>
               <p>※ 승점: 승 3점 · 무 1점 · 패 1점</p>
               {sm&&<p>※ 세트득/실: 세트 승수 합계 · 득점/실점: 세트별 실제 점수 합계</p>}
             </div>
           </section>
-          <div>
-            <div className="flex items-center gap-2 mb-6 px-4"><h3 className="text-lg font-black text-slate-800 uppercase tracking-tight">Match Schedule</h3><div className="h-0.5 flex-1 bg-slate-100"></div></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ScheduleSection rounds={rounds} onMatchClick={onMatchClick} onScoreboardLink={onScoreboardLink} />
+        </div>
+      );
+    };
+
+    // ================================================================
+    //  ScheduleSection — 라운드별 경기 카드 (토글 가능, 매치 번호, 결석 표시)
+    // ================================================================
+    const ScheduleSection = ({ rounds, onMatchClick, onScoreboardLink }) => {
+      const [collapsed, setCollapsed] = useState(false);
+
+      // 라운드들을 가로지르며 매치마다 전역 번호 부여 (bye 제외)
+      const matchNumbers = {};
+      let n = 0;
+      rounds.forEach(round=>{
+        (round.matches||[]).forEach(m=>{
+          const bye = m.home.id.startsWith('bye') || m.away.id.startsWith('bye');
+          if(!bye){ n++; matchNumbers[m.id] = n; }
+        });
+      });
+
+      return (
+        <div>
+          <div className="flex items-center gap-3 mb-6 px-4">
+            <h3 className="text-lg font-black text-slate-800 uppercase tracking-tight">Match Schedule</h3>
+            <span className="text-[12px] font-black text-slate-400 bg-slate-100 px-2 py-0.5 rounded">총 {n}경기</span>
+            <div className="h-0.5 flex-1 bg-slate-100"></div>
+            <button onClick={()=>setCollapsed(c=>!c)} className="text-[13px] font-black bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg">
+              {collapsed?'▼ 펼치기':'▲ 접기'}
+            </button>
+          </div>
+          {!collapsed&&(
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
               {rounds.map(round=>(
                 <div key={round.roundNumber} className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
                   <div className="bg-slate-800 px-4 py-2.5 flex justify-between items-center">
-                    <h4 className="font-bold text-white text-[10px] uppercase tracking-[0.2em]">라운드 {round.roundNumber}</h4>
+                    <h4 className="font-bold text-white text-[12px] uppercase tracking-[0.2em]">라운드 {round.roundNumber}</h4>
                     <div className="w-1.5 h-1.5 rounded-full bg-slate-600"></div>
                   </div>
-                  <div className="p-4 space-y-2 flex-1">
+                  <div className="p-3 space-y-2 flex-1">
                     {round.matches.map(m=>{
                       const bye=m.home.id.startsWith('bye')||m.away.id.startsWith('bye');
-                      if(bye) return <div key={m.id} className="text-center py-2 px-3 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-[10px] font-bold text-slate-400 italic">{m.home.id.startsWith('bye')?m.away.name:m.home.name} 휴식</div>;
+                      if(bye) return <div key={m.id} className="text-center py-2 px-3 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-[12px] font-bold text-slate-400 italic">{m.home.id.startsWith('bye')?m.away.name:m.home.name} 휴식</div>;
                       const done=m.status==='completed';
+                      const matchNo=matchNumbers[m.id];
+                      const hasAbsent=m.home.absent||m.away.absent;
+                      const baseColor = hasAbsent
+                        ? 'bg-amber-50 border-amber-300 hover:border-amber-400'
+                        : (done
+                            ? 'bg-slate-50 border-slate-100 hover:border-blue-200'
+                            : 'bg-white border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md');
                       return (
-                        <div key={m.id} className="flex gap-1.5">
+                        <div key={m.id} className="flex gap-1.5 items-stretch">
+                          <span className={`w-9 shrink-0 rounded-lg flex items-center justify-center text-base font-black ${hasAbsent?'bg-amber-400 text-white':'bg-blue-600 text-white'}`}>{matchNo}</span>
                           <button onClick={()=>onMatchClick(m)}
-                            className={`flex-1 flex items-center justify-between text-sm p-3 rounded-xl border transition-all group ${done?'bg-slate-50 border-slate-100 hover:border-blue-200':'bg-white border-slate-200 shadow-sm hover:border-blue-400 hover:shadow-md'}`}>
-                            <span className={`flex-1 font-bold text-left truncate ${done&&(m.scoreHome||0)>(m.scoreAway||0)?'text-blue-700':'text-slate-700'}`}>{m.home.name}</span>
-                            <div className="px-3 min-w-[70px] flex justify-center">
-                              {done?<span className="font-black text-slate-900 bg-white border border-slate-100 px-2 py-0.5 rounded shadow-sm">{m.scoreHome} : {m.scoreAway}</span>:<span className="text-[9px] text-slate-300 font-black italic group-hover:text-blue-400">VS</span>}
+                            className={`flex-1 flex items-center justify-between text-base p-2.5 rounded-xl border transition-all group ${baseColor}`}>
+                            <span className={`flex-1 font-black text-left truncate flex items-center gap-1 ${done&&(m.scoreHome||0)>(m.scoreAway||0)?'text-blue-700':'text-slate-800'}`}>
+                              {m.home.absent&&<span className="text-[11px] bg-amber-500 text-white px-1 rounded">결</span>}
+                              {m.home.name}
+                            </span>
+                            <div className="px-2 min-w-[60px] flex justify-center">
+                              {done?<span className="font-black text-slate-900 bg-white border border-slate-100 px-2 py-0.5 rounded shadow-sm text-base">{m.scoreHome} : {m.scoreAway}</span>:<span className="text-sm text-slate-300 font-black italic group-hover:text-blue-400">VS</span>}
                             </div>
-                            <span className={`flex-1 font-bold text-right truncate ${done&&(m.scoreAway||0)>(m.scoreHome||0)?'text-blue-700':'text-slate-700'}`}>{m.away.name}</span>
+                            <span className={`flex-1 font-black text-right truncate flex items-center gap-1 justify-end ${done&&(m.scoreAway||0)>(m.scoreHome||0)?'text-blue-700':'text-slate-800'}`}>
+                              {m.away.name}
+                              {m.away.absent&&<span className="text-[11px] bg-amber-500 text-white px-1 rounded">결</span>}
+                            </span>
                           </button>
                           {onScoreboardLink&&(
                             <button onClick={()=>onScoreboardLink(m.id)}
-                              className="w-9 bg-slate-100 hover:bg-purple-100 text-slate-400 hover:text-purple-600 rounded-xl flex items-center justify-center text-sm transition-all shrink-0" title="스코어보드 링크">
+                              className="w-9 bg-slate-100 hover:bg-purple-100 text-slate-400 hover:text-purple-600 rounded-xl flex items-center justify-center text-base transition-all shrink-0" title="스코어보드">
                               📺
                             </button>
                           )}
@@ -533,7 +577,7 @@
                 </div>
               ))}
             </div>
-          </div>
+          )}
         </div>
       );
     };
@@ -559,15 +603,15 @@
               <div className="bg-slate-800 text-white px-4 py-3 flex justify-between items-center">
                 <h4 className="font-bold text-lg">{g.name} 예선</h4>
                 <div className="flex items-center gap-2">
-                  <button onClick={()=>toggle(g.id)} className="text-[10px] font-black bg-slate-700 hover:bg-slate-600 text-slate-300 px-2 py-1 rounded">
+                  <button onClick={()=>toggle(g.id)} className="text-[12px] font-black bg-slate-700 hover:bg-slate-600 text-slate-300 px-2 py-1 rounded">
                     {isExp?'간단히':'자세히'}
                   </button>
-                  <span className="text-xs font-black text-slate-400 bg-slate-700 px-2 py-0.5 rounded">LEAGUE</span>
+                  <span className="text-sm font-black text-slate-400 bg-slate-700 px-2 py-0.5 rounded">LEAGUE</span>
                 </div>
               </div>
               <div className="p-4 flex-1">
                 <div className="overflow-x-auto mb-6">
-                  <table className={`w-full ${isExp?'text-[10px]':'text-[11px] sm:text-xs'}`}>
+                  <table className={`w-full ${isExp?'text-[12px]':'text-[13px] sm:text-sm'}`}>
                     <thead><tr className="text-slate-400 border-b border-slate-100 uppercase font-black">
                       <th className="text-left pb-2 w-8">순위</th>
                       <th className="text-left pb-2">팀명</th>
@@ -604,42 +648,82 @@
                     </tbody>
                   </table>
                 </div>
-                <div className="space-y-2">
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 border-b border-slate-100 pb-1">Match Schedule</p>
-                  <div className="max-h-[200px] overflow-y-auto pr-1 custom-scrollbar space-y-1.5">
-                    {g.rounds.map(r=>r.matches.map(m=>{
-                      if(m.home.id.startsWith('bye')||m.away.id.startsWith('bye')) return null;
-                      const done=m.status==='completed';
-                      return (
-                        <div key={m.id} className="flex gap-1.5">
-                          <button onClick={()=>onMatchClick(m,g.id)}
-                            className={`flex-1 flex justify-between items-center px-3 py-2 rounded-lg text-xs transition-all hover:bg-blue-50 border ${done?'bg-slate-50 border-slate-100':'bg-white border-slate-100 shadow-sm'}`}>
-                            <span className="flex-1 text-right font-bold truncate text-slate-700">{m.home.name}</span>
-                            <div className="px-3 flex flex-col items-center">
-                              {done?<span className="font-black text-blue-600 text-sm">{m.scoreHome} : {m.scoreAway}</span>:<span className="text-[10px] text-slate-300 font-black italic">VS</span>}
-                            </div>
-                            <span className="flex-1 text-left font-bold truncate text-slate-700">{m.away.name}</span>
-                          </button>
-                          {onScoreboardLink&&(
-                            <button onClick={()=>onScoreboardLink(m.id)}
-                              className="w-8 bg-slate-100 hover:bg-purple-100 text-slate-400 hover:text-purple-600 rounded-lg flex items-center justify-center text-xs transition-all shrink-0" title="스코어보드 링크">
-                              📺
-                            </button>
-                          )}
-                        </div>
-                      );
-                    }))}
-                  </div>
-                </div>
+                <GroupScheduleBlock group={g} onMatchClick={onMatchClick} onScoreboardLink={onScoreboardLink} />
               </div>
-              <div className="bg-slate-50 px-4 py-2 text-[8px] text-slate-400 font-bold uppercase flex gap-4 border-t border-slate-100">
+              <div className="bg-slate-50 px-4 py-2 text-[10px] text-slate-400 font-bold uppercase flex gap-4 border-t border-slate-100">
                 <div className="flex items-center gap-1"><div className="w-2 h-2 bg-green-100 rounded-sm"></div>진출권</div>
+                <div className="flex items-center gap-1"><div className="w-2 h-2 bg-amber-300 rounded-sm"></div>결석 포함</div>
                 <span>기준: 승점 &gt; 득실차 &gt; 다득점</span>
               </div>
             </div>
           );})}
         </div>
       </div>
+      );
+    };
+
+    // ================================================================
+    //  GroupScheduleBlock — 한 조의 경기 스케줄 (조마다 접기/펼치기)
+    // ================================================================
+    const GroupScheduleBlock = ({ group, onMatchClick, onScoreboardLink }) => {
+      const [collapsed, setCollapsed] = useState(false);
+      // 매치 번호 매김 (조 내부에서)
+      const matchNumbers = {};
+      let n = 0;
+      (group.rounds||[]).forEach(r=>{
+        (r.matches||[]).forEach(m=>{
+          if(m.home.id.startsWith('bye')||m.away.id.startsWith('bye')) return;
+          n++;
+          matchNumbers[m.id] = n;
+        });
+      });
+      return (
+        <div className="space-y-2">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-1">
+            <p className="text-[12px] font-black text-slate-400 uppercase tracking-widest">Match Schedule · 총 {n}경기</p>
+            <button onClick={()=>setCollapsed(c=>!c)} className="text-[12px] font-black bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-0.5 rounded">
+              {collapsed?'▼ 펼치기':'▲ 접기'}
+            </button>
+          </div>
+          {!collapsed&&(
+            <div className="max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar space-y-1">
+              {(group.rounds||[]).map(r=>r.matches.map(m=>{
+                if(m.home.id.startsWith('bye')||m.away.id.startsWith('bye')) return null;
+                const done=m.status==='completed';
+                const matchNo=matchNumbers[m.id];
+                const hasAbsent=m.home.absent||m.away.absent;
+                const baseColor = hasAbsent
+                  ? 'bg-amber-50 border-amber-300'
+                  : (done?'bg-slate-50 border-slate-100':'bg-white border-slate-100 shadow-sm');
+                return (
+                  <div key={m.id} className="flex gap-1 items-stretch">
+                    <span className={`w-8 shrink-0 rounded flex items-center justify-center text-base font-black ${hasAbsent?'bg-amber-400 text-white':'bg-blue-600 text-white'}`}>{matchNo}</span>
+                    <button onClick={()=>onMatchClick(m,group.id)}
+                      className={`flex-1 flex justify-between items-center px-2.5 py-2 rounded-lg text-base transition-all hover:brightness-95 border ${baseColor}`}>
+                      <span className={`flex-1 text-right font-black truncate flex items-center gap-1 justify-end ${hasAbsent?'text-amber-900':'text-slate-800'}`}>
+                        {m.home.absent&&<span className="text-[11px] bg-amber-500 text-white px-1 rounded">결</span>}
+                        {m.home.name}
+                      </span>
+                      <div className="px-2 flex flex-col items-center">
+                        {done?<span className="font-black text-blue-600 text-base">{m.scoreHome} : {m.scoreAway}</span>:<span className="text-sm text-slate-300 font-black italic">VS</span>}
+                      </div>
+                      <span className={`flex-1 text-left font-black truncate flex items-center gap-1 ${hasAbsent?'text-amber-900':'text-slate-800'}`}>
+                        {m.away.name}
+                        {m.away.absent&&<span className="text-[11px] bg-amber-500 text-white px-1 rounded">결</span>}
+                      </span>
+                    </button>
+                    {onScoreboardLink&&(
+                      <button onClick={()=>onScoreboardLink(m.id)}
+                        className="w-8 bg-slate-100 hover:bg-purple-100 text-slate-400 hover:text-purple-600 rounded-lg flex items-center justify-center text-base transition-all shrink-0" title="스코어보드">
+                        📺
+                      </button>
+                    )}
+                  </div>
+                );
+              }))}
+            </div>
+          )}
+        </div>
       );
     };
 
@@ -676,21 +760,21 @@
               {isTeam&&(
                 <div className="space-y-6 bg-slate-50 p-6 rounded-2xl border border-slate-100">
                   <div className="flex justify-between items-center">
-                    <h4 className="font-black text-slate-900 text-sm italic">Detailed Match Results</h4>
-                    <button onClick={applyTeam} className="text-[10px] font-black bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700">결과 자동 반영</button>
+                    <h4 className="font-black text-slate-900 text-base italic">Detailed Match Results</h4>
+                    <button onClick={applyTeam} className="text-[12px] font-black bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700">결과 자동 반영</button>
                   </div>
                   {sub.map((round,ri)=>(
                     <div key={ri} className="space-y-3">
-                      {nr>1&&<p className="text-[10px] font-black text-slate-400 uppercase">Round {ri+1}</p>}
+                      {nr>1&&<p className="text-[12px] font-black text-slate-400 uppercase">Round {ri+1}</p>}
                       {round.map((m,mi)=>(
                         <div key={mi} className="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
-                          <span className="text-[10px] font-bold text-slate-400 w-12">Match {mi+1}</span>
+                          <span className="text-[12px] font-bold text-slate-400 w-12">Match {mi+1}</span>
                           <div className="flex-1 flex items-center justify-between gap-2">
-                            <span className="text-xs font-bold text-slate-600 truncate max-w-[80px]">{match.participant1?.name}</span>
-                            <input type="number" value={m.s1} onChange={e=>{const ns=[...sub];ns[ri][mi].s1=parseInt(e.target.value)||0;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-sm"/>
-                            <span className="text-[10px] font-black text-slate-300 italic">VS</span>
-                            <input type="number" value={m.s2} onChange={e=>{const ns=[...sub];ns[ri][mi].s2=parseInt(e.target.value)||0;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-sm"/>
-                            <span className="text-xs font-bold text-slate-600 truncate max-w-[80px]">{match.participant2?.name}</span>
+                            <span className="text-sm font-bold text-slate-600 truncate max-w-[80px]">{match.participant1?.name}</span>
+                            <input type="number" value={m.s1} onChange={e=>{const ns=[...sub];ns[ri][mi].s1=parseInt(e.target.value)||0;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-base"/>
+                            <span className="text-[12px] font-black text-slate-300 italic">VS</span>
+                            <input type="number" value={m.s2} onChange={e=>{const ns=[...sub];ns[ri][mi].s2=parseInt(e.target.value)||0;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-base"/>
+                            <span className="text-sm font-bold text-slate-600 truncate max-w-[80px]">{match.participant2?.name}</span>
                           </div>
                         </div>
                       ))}
@@ -705,7 +789,7 @@
                     <p className="font-bold text-slate-800 truncate">{side.p?.name||'TBD'}</p>
                     <div className="flex flex-col items-center">
                       <input type="number" value={side.s} onChange={e=>side.setS(parseInt(e.target.value)||0)} className={`w-full text-center text-3xl font-black py-3 border-2 border-slate-100 rounded-xl focus:border-${side.col}-500 outline-none`}/>
-                      <span className="text-[10px] font-black text-slate-400 mt-1 uppercase">{isTeam?'Rounds Won':'Score'}</span>
+                      <span className="text-[12px] font-black text-slate-400 mt-1 uppercase">{isTeam?'Rounds Won':'Score'}</span>
                     </div>
                   </div>
                 ))}
@@ -715,6 +799,55 @@
                 {match.status==='completed'&&<button onClick={()=>onSave(match.id,0,0,'',true)} className="w-full py-3 bg-red-50 text-red-500 rounded-xl font-bold hover:bg-red-100">결과 초기화</button>}
                 <button onClick={onClose} className="w-full py-3 text-slate-400 font-bold">취소</button>
               </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // ================================================================
+    //  LeagueMatchModal
+    // ================================================================
+    // ================================================================
+    //  AttendanceModal — 결석생 관리 모달
+    // ================================================================
+    const AttendanceModal = ({ participants, onToggle, onClose }) => {
+      const sorted = [...participants].sort((a,b)=>(a.name||'').localeCompare(b.name||''));
+      const absentCount = participants.filter(p=>p.absent).length;
+      return (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2rem] w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+            <div className="bg-slate-800 p-6 text-white flex justify-between items-center shrink-0">
+              <div>
+                <p className="text-[12px] font-black text-slate-400 uppercase tracking-widest mb-1">Attendance</p>
+                <h3 className="text-xl font-black italic">출결 관리</h3>
+                <p className="text-sm text-slate-300 mt-1">결석 표시된 학생의 경기는 노란색으로 표시됩니다</p>
+              </div>
+              <div className="text-right">
+                <p className="text-[12px] font-black text-slate-400 uppercase">결석</p>
+                <p className="text-2xl font-black text-amber-400">{absentCount}</p>
+                <p className="text-[12px] text-slate-500">/ {participants.length}명</p>
+              </div>
+            </div>
+            <div className="p-6 overflow-y-auto custom-scrollbar flex-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {sorted.map(p=>(
+                  <button key={p.id} onClick={()=>onToggle(p.id)}
+                    className={`flex items-center justify-between p-3 rounded-xl border-2 transition-all active:scale-95 ${
+                      p.absent
+                        ?'bg-amber-50 border-amber-400 text-amber-900'
+                        :'bg-white border-slate-200 hover:border-slate-300 text-slate-700'
+                    }`}>
+                    <span className="font-bold truncate text-base">{p.name}</span>
+                    <span className={`text-[12px] font-black px-2 py-0.5 rounded ${p.absent?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>
+                      {p.absent?'결석':'출석'}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="p-4 border-t border-slate-100 shrink-0">
+              <button onClick={onClose} className="w-full py-3 bg-slate-900 text-white rounded-2xl font-black hover:bg-slate-800">완료</button>
             </div>
           </div>
         </div>
@@ -796,7 +929,7 @@
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[100] flex items-center justify-center p-4">
           <div className="bg-white rounded-[2rem] w-full max-w-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
             <div className="bg-slate-800 p-6 text-white text-center shrink-0">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+              <p className="text-[12px] font-black text-slate-400 uppercase tracking-widest mb-1">
                 League Match {isTeam&&`(${tf?.name})`}
                 {isSets&&` · ${totalSets===1?'단판제':`${totalSets}판 ${winSets}선승`}`}
               </p>
@@ -806,21 +939,21 @@
               {isTeam&&(
                 <div className="space-y-6 bg-slate-50 p-6 rounded-2xl border border-slate-100">
                   <div className="flex justify-between items-center">
-                    <h4 className="font-black text-slate-900 text-sm italic">Detailed Match Results</h4>
-                    <button onClick={applyTeam} className="text-[10px] font-black bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700">결과 자동 반영</button>
+                    <h4 className="font-black text-slate-900 text-base italic">Detailed Match Results</h4>
+                    <button onClick={applyTeam} className="text-[12px] font-black bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700">결과 자동 반영</button>
                   </div>
                   {sub.map((round,ri)=>(
                     <div key={ri} className="space-y-3">
-                      {nr>1&&<p className="text-[10px] font-black text-slate-400 uppercase">Round {ri+1}</p>}
+                      {nr>1&&<p className="text-[12px] font-black text-slate-400 uppercase">Round {ri+1}</p>}
                       {round.map((m,mi)=>(
                         <div key={mi} className="flex items-center gap-4 bg-white p-3 rounded-xl border border-slate-100 shadow-sm">
-                          <span className="text-[10px] font-bold text-slate-400 w-12">Match {mi+1}</span>
+                          <span className="text-[12px] font-bold text-slate-400 w-12">Match {mi+1}</span>
                           <div className="flex-1 flex items-center justify-between gap-2">
-                            <span className="text-xs font-bold text-slate-600 truncate max-w-[80px]">{match.home.name}</span>
-                            <input type="number" inputMode="numeric" value={m.s1} onFocus={e=>e.target.select()} onChange={e=>{const ns=[...sub];ns[ri][mi].s1=e.target.value;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-sm"/>
-                            <span className="text-[10px] font-black text-slate-300 italic">VS</span>
-                            <input type="number" inputMode="numeric" value={m.s2} onFocus={e=>e.target.select()} onChange={e=>{const ns=[...sub];ns[ri][mi].s2=e.target.value;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-sm"/>
-                            <span className="text-xs font-bold text-slate-600 truncate max-w-[80px]">{match.away.name}</span>
+                            <span className="text-sm font-bold text-slate-600 truncate max-w-[80px]">{match.home.name}</span>
+                            <input type="number" inputMode="numeric" value={m.s1} onFocus={e=>e.target.select()} onChange={e=>{const ns=[...sub];ns[ri][mi].s1=e.target.value;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-base"/>
+                            <span className="text-[12px] font-black text-slate-300 italic">VS</span>
+                            <input type="number" inputMode="numeric" value={m.s2} onFocus={e=>e.target.select()} onChange={e=>{const ns=[...sub];ns[ri][mi].s2=e.target.value;setSub(ns);}} className="w-12 text-center font-black border rounded p-1 text-base"/>
+                            <span className="text-sm font-bold text-slate-600 truncate max-w-[80px]">{match.away.name}</span>
                           </div>
                         </div>
                       ))}
@@ -832,7 +965,7 @@
               {isSets ? (
                 /* 세트제 점수 입력 */
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between text-xs font-black text-slate-500 px-2">
+                  <div className="flex items-center justify-between text-sm font-black text-slate-500 px-2">
                     <span className="flex-1 text-center truncate">{match.home.name}</span>
                     <span className="w-16 text-center text-slate-300">vs</span>
                     <span className="flex-1 text-center truncate">{match.away.name}</span>
@@ -845,7 +978,7 @@
                       const awayWin = valid && a>h;
                       return (
                         <div key={idx} className="flex items-center gap-3 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                          <span className="text-[10px] font-black text-slate-400 uppercase w-10">SET {idx+1}</span>
+                          <span className="text-[12px] font-black text-slate-400 uppercase w-10">SET {idx+1}</span>
                           <input type="number" inputMode="numeric" value={row.h} onFocus={e=>e.target.select()}
                             onChange={e=>updateSetRow(idx,'h',e.target.value)}
                             placeholder="0"
@@ -855,6 +988,7 @@
                             onChange={e=>updateSetRow(idx,'a',e.target.value)}
                             placeholder="0"
                             className={`flex-1 text-center text-2xl font-black py-2 border-b-2 outline-none transition-colors ${awayWin?'border-rose-500 text-rose-700 bg-rose-50':'border-slate-200 focus:border-rose-300'}`}/>
+                          <span className="w-10 shrink-0" aria-hidden="true"></span>
                         </div>
                       );
                     })}
@@ -866,7 +1000,7 @@
                     return (
                       <div className="flex items-center justify-between bg-slate-900 text-white p-4 rounded-2xl">
                         <span className={`flex-1 text-center font-black text-lg ${winner==='home'?'text-green-400':''}`}>{wh}</span>
-                        <span className="text-slate-500 text-xs uppercase font-black">세트 승수</span>
+                        <span className="text-slate-500 text-sm uppercase font-black">세트 승수</span>
                         <span className={`flex-1 text-center font-black text-lg ${winner==='away'?'text-green-400':''}`}>{wa}</span>
                       </div>
                     );
@@ -877,9 +1011,9 @@
                 <div className="flex items-center justify-between gap-4">
                   {[{p:match.home,s:s1,setS:setS1},{p:match.away,s:s2,setS:setS2}].map((side,i)=>(
                     <div key={i} className="flex-1 text-center space-y-3">
-                      <div className="text-xs font-black text-slate-500 truncate uppercase">{side.p.name}</div>
+                      <div className="text-sm font-black text-slate-500 truncate uppercase">{side.p.name}</div>
                       <input type="number" inputMode="numeric" value={side.s} onFocus={e=>e.target.select()} onChange={e=>side.setS(e.target.value)} className="w-full text-center text-4xl font-black py-4 border-b-4 border-slate-100 focus:border-blue-500 outline-none"/>
-                      <span className="text-[10px] font-black text-slate-400 uppercase">{isTeam?'Rounds Won':'Score'}</span>
+                      <span className="text-[12px] font-black text-slate-400 uppercase">{isTeam?'Rounds Won':'Score'}</span>
                     </div>
                   ))}
                   <div className="text-2xl font-black text-slate-200">:</div>
@@ -960,14 +1094,14 @@
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-4">
             <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2">
-              <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+              <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-base font-bold">2</span>
               {label} 등록 ({participants.length}/{MAX_PARTICIPANTS})
-              {showGenderUI&&<span className="text-xs font-bold text-slate-400">남 {maleCount} / 여 {femaleCount}{noGenderCount>0?` / 미분류 ${noGenderCount}`:''}</span>}
+              {showGenderUI&&<span className="text-sm font-bold text-slate-400">남 {maleCount} / 여 {femaleCount}{noGenderCount>0?` / 미분류 ${noGenderCount}`:''}</span>}
             </h3>
             <div className="flex flex-wrap gap-2">
-              {participants.length>0&&<button onClick={onClearAll} className="text-[11px] font-black text-red-600 bg-red-50 px-3 py-1.5 rounded-lg hover:bg-red-100 border border-red-200">🗑️ 초기화</button>}
-              <button onClick={()=>setShowBulk(true)} className="text-[11px] font-black text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg hover:bg-blue-100 border border-blue-100">📥 일괄 등록</button>
-              {participantType!=='doubles'&&<span className="text-[10px] font-black text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-100">시드: {seeded}</span>}
+              {participants.length>0&&<button onClick={onClearAll} className="text-[13px] font-black text-red-600 bg-red-50 px-3 py-1.5 rounded-lg hover:bg-red-100 border border-red-200">🗑️ 초기화</button>}
+              <button onClick={()=>setShowBulk(true)} className="text-[13px] font-black text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg hover:bg-blue-100 border border-blue-100">📥 일괄 등록</button>
+              {participantType!=='doubles'&&<span className="text-[12px] font-black text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-100">시드: {seeded}</span>}
             </div>
           </div>
 
@@ -978,10 +1112,10 @@
               placeholder={`${label} 이름 입력`}
               className="flex-1 px-4 py-3 border-2 border-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 font-medium"/>
             <div className="flex rounded-xl border-2 border-slate-100 overflow-hidden">
-              <button onClick={()=>setGender('M')} className={`px-4 py-3 font-black text-sm transition-all ${gender==='M'?'bg-blue-600 text-white':'bg-slate-50 text-slate-400 hover:bg-blue-50'}`}>남</button>
-              <button onClick={()=>setGender('F')} className={`px-4 py-3 font-black text-sm transition-all ${gender==='F'?'bg-rose-500 text-white':'bg-slate-50 text-slate-400 hover:bg-rose-50'}`}>여</button>
+              <button onClick={()=>setGender('M')} className={`px-4 py-3 font-black text-base transition-all ${gender==='M'?'bg-blue-600 text-white':'bg-slate-50 text-slate-400 hover:bg-blue-50'}`}>남</button>
+              <button onClick={()=>setGender('F')} className={`px-4 py-3 font-black text-base transition-all ${gender==='F'?'bg-rose-500 text-white':'bg-slate-50 text-slate-400 hover:bg-rose-50'}`}>여</button>
             </div>
-            <button onClick={handleAdd} className="bg-slate-900 text-white px-6 py-3 rounded-xl font-black text-sm hover:bg-slate-800 shadow-lg shadow-slate-200">추가</button>
+            <button onClick={handleAdd} className="bg-slate-900 text-white px-6 py-3 rounded-xl font-black text-base hover:bg-slate-800 shadow-lg shadow-slate-200">추가</button>
           </div>
 
           {/* 성별 필터 탭 — 성별 데이터 있을 때만 표시 */}
@@ -989,7 +1123,7 @@
             <div className="flex gap-2 mb-4">
               {[{k:'ALL',l:`전체 (${participants.length})`,c:'slate'},{k:'M',l:`남자 (${maleCount})`,c:'blue'},{k:'F',l:`여자 (${femaleCount})`,c:'rose'}].map(({k,l,c})=>(
                 <button key={k} onClick={()=>setGenderFilter(k)}
-                  className={`px-4 py-2 rounded-xl text-xs font-black transition-all ${genderFilter===k?`bg-${c}-600 text-white shadow-md`:`bg-${c}-50 text-${c}-600 border border-${c}-100`}`}>
+                  className={`px-4 py-2 rounded-xl text-sm font-black transition-all ${genderFilter===k?`bg-${c}-600 text-white shadow-md`:`bg-${c}-50 text-${c}-600 border border-${c}-100`}`}>
                   {l}
                 </button>
               ))}
@@ -1003,16 +1137,16 @@
                 <div className="flex items-center gap-3 overflow-hidden">
                   {participantType!=='doubles'?(
                     <button onClick={()=>onToggleSeed(p.id)} className={`w-10 h-10 rounded-full flex flex-col items-center justify-center transition-all ${p.isSeeded?'bg-amber-500 text-white shadow-inner':'bg-slate-100 text-slate-400 hover:bg-slate-200'}`}>
-                      <span className="text-xs leading-none">{p.isSeeded?'👑':'⭐'}</span>
-                      {p.isSeeded&&<span className="text-[10px] font-black">{p.seedRank}</span>}
+                      <span className="text-sm leading-none">{p.isSeeded?'👑':'⭐'}</span>
+                      {p.isSeeded&&<span className="text-[12px] font-black">{p.seedRank}</span>}
                     </button>
                   ):<div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-slate-400">👤</div>}
                   <div className="flex flex-col">
                     <div className="flex items-center gap-1.5">
-                      {p.gender&&<span className={`text-[9px] font-black px-1.5 py-0.5 rounded ${p.gender==='M'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700'}`}>{p.gender==='M'?'남':'여'}</span>}
+                      {p.gender&&<span className={`text-[11px] font-black px-1.5 py-0.5 rounded ${p.gender==='M'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700'}`}>{p.gender==='M'?'남':'여'}</span>}
                       <span className={`font-bold truncate max-w-[90px] ${p.isSeeded&&participantType!=='doubles'?'text-amber-900':'text-slate-700'}`}>{p.name}</span>
                     </div>
-                    {p.isSeeded&&participantType!=='doubles'&&<span className="text-[9px] text-amber-600 font-bold uppercase">Seed #{p.seedRank}</span>}
+                    {p.isSeeded&&participantType!=='doubles'&&<span className="text-[11px] text-amber-600 font-bold uppercase">Seed #{p.seedRank}</span>}
                   </div>
                 </div>
                 <button onClick={()=>onRemove(p.id)} className="text-slate-300 hover:text-red-500 p-1 flex-shrink-0">
@@ -1024,8 +1158,8 @@
 
           {participants.length===0&&(
             <div className="text-center py-12 space-y-4 bg-slate-50/50 rounded-2xl border-2 border-dashed border-slate-100">
-              <p className="text-slate-400 italic text-sm">명단을 입력하거나 일괄 등록을 이용하세요.</p>
-              <button onClick={()=>setShowBulk(true)} className="px-6 py-3 bg-white text-blue-600 rounded-xl font-bold text-sm hover:shadow-md border border-blue-100">엑셀/CSV 파일 등록</button>
+              <p className="text-slate-400 italic text-base">명단을 입력하거나 일괄 등록을 이용하세요.</p>
+              <button onClick={()=>setShowBulk(true)} className="px-6 py-3 bg-white text-blue-600 rounded-xl font-bold text-base hover:shadow-md border border-blue-100">엑셀/CSV 파일 등록</button>
             </div>
           )}
 
@@ -1039,16 +1173,16 @@
                 </div>
                 <div className="p-8 space-y-6">
                   <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100">
-                    <p className="text-xs font-black text-blue-700 mb-2">📋 CSV 양식 컬럼</p>
-                    <p className="text-xs font-mono text-blue-600">이름, 시드여부(Y/N), 성별(M/F)</p>
-                    <p className="text-[10px] text-blue-400 mt-1">※ 성별 컬럼 생략 시 미분류로 등록</p>
+                    <p className="text-sm font-black text-blue-700 mb-2">📋 CSV 양식 컬럼</p>
+                    <p className="text-sm font-mono text-blue-600">이름, 시드여부(Y/N), 성별(M/F)</p>
+                    <p className="text-[12px] text-blue-400 mt-1">※ 성별 컬럼 생략 시 미분류로 등록</p>
                   </div>
                   <button onClick={dlTemplate} className="w-full py-4 bg-slate-50 text-slate-700 border border-slate-200 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-100">📄 양식 파일(CSV) 다운로드</button>
                   <label className="flex items-center gap-3 cursor-pointer bg-blue-50/50 p-4 rounded-2xl border border-blue-100">
                     <input type="checkbox" checked={replace} onChange={e=>setReplace(e.target.checked)} className="w-5 h-5"/>
                     <div>
-                      <span className="text-sm font-black text-slate-700">기존 명단 삭제 후 새로 등록하기</span>
-                      <p className="text-[10px] text-slate-400 font-medium italic mt-0.5">체크 시 현재 등록된 {participants.length}개의 명단이 삭제됩니다.</p>
+                      <span className="text-base font-black text-slate-700">기존 명단 삭제 후 새로 등록하기</span>
+                      <p className="text-[12px] text-slate-400 font-medium italic mt-0.5">체크 시 현재 등록된 {participants.length}개의 명단이 삭제됩니다.</p>
                     </div>
                   </label>
                   <div className="border-2 border-dashed border-slate-200 rounded-3xl p-8 text-center space-y-4 hover:border-blue-400 transition-all bg-slate-50/50">
@@ -1092,8 +1226,8 @@
           <h3 className="text-3xl font-black text-slate-900 italic tracking-tight">Team Pairing.</h3>
           <p className="text-slate-500 font-medium italic">복식 팀을 어떻게 구성할까요?</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button onClick={()=>setMode('manual')} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-blue-500 hover:bg-blue-50 text-left"><h4 className="font-black text-xl text-slate-800">✍️ 직접 페어링</h4><p className="text-sm text-slate-400 mt-1">원하는 사람끼리 한 팀으로 묶습니다.</p></button>
-            <button onClick={autoRandom} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-amber-500 hover:bg-amber-50 text-left"><h4 className="font-black text-xl text-slate-800">🎲 완전 랜덤 페어링</h4><p className="text-sm text-slate-400 mt-1">시스템이 무작위로 팀을 짝짓습니다.</p></button>
+            <button onClick={()=>setMode('manual')} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-blue-500 hover:bg-blue-50 text-left"><h4 className="font-black text-xl text-slate-800">✍️ 직접 페어링</h4><p className="text-base text-slate-400 mt-1">원하는 사람끼리 한 팀으로 묶습니다.</p></button>
+            <button onClick={autoRandom} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-amber-500 hover:bg-amber-50 text-left"><h4 className="font-black text-xl text-slate-800">🎲 완전 랜덤 페어링</h4><p className="text-base text-slate-400 mt-1">시스템이 무작위로 팀을 짝짓습니다.</p></button>
           </div>
           <button onClick={onBack} className="text-slate-400 font-bold hover:underline">이전 단계로</button>
         </div>
@@ -1102,23 +1236,23 @@
         <div className="bg-white p-8 rounded-[3rem] border border-slate-200 shadow-2xl space-y-8 flex flex-col min-h-[600px] animate-fade-in">
           <div className="flex justify-between items-center border-b pb-4">
             <h3 className="text-2xl font-black text-slate-900 italic">Manual Pairing.</h3>
-            <button onClick={()=>setMode('selection')} className="text-xs font-black text-blue-500 uppercase">모드 변경</button>
+            <button onClick={()=>setMode('selection')} className="text-sm font-black text-blue-500 uppercase">모드 변경</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-1">
             <div className="space-y-4">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">대기자 ({unassigned.length})</label>
+              <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">대기자 ({unassigned.length})</label>
               <div className="grid grid-cols-1 gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 {unassigned.map(p=><button key={p.id} onClick={()=>handleManual(p)} className={`w-full p-4 rounded-xl border-2 transition-all text-left font-bold ${sel?.id===p.id?'border-blue-500 bg-blue-50 scale-[1.02] shadow-md':'border-slate-100 bg-slate-50'}`}>{p.name}</button>)}
               </div>
             </div>
             <div className="md:col-span-2 space-y-4">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">구성된 팀 ({paired.length})</label>
+              <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">구성된 팀 ({paired.length})</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 {paired.map(t=>(
                   <div key={t.id} className={`flex items-center justify-between p-4 border-2 rounded-2xl ${t.isSeeded?'bg-amber-50 border-amber-300':'bg-white border-slate-100'}`}>
                     <div className="flex items-center gap-3">
-                      <button onClick={()=>setPaired(prev=>prev.map(x=>x.id===t.id?{...x,isSeeded:!x.isSeeded,seedRank:!x.isSeeded?prev.filter(p=>p.isSeeded).length+1:undefined}:x))} className={`w-8 h-8 rounded-full text-xs ${t.isSeeded?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>{t.isSeeded?'👑':'⭐'}</button>
-                      <span className="font-black text-slate-800 text-sm truncate max-w-[120px]">{t.name}</span>
+                      <button onClick={()=>setPaired(prev=>prev.map(x=>x.id===t.id?{...x,isSeeded:!x.isSeeded,seedRank:!x.isSeeded?prev.filter(p=>p.isSeeded).length+1:undefined}:x))} className={`w-8 h-8 rounded-full text-sm ${t.isSeeded?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>{t.isSeeded?'👑':'⭐'}</button>
+                      <span className="font-black text-slate-800 text-base truncate max-w-[120px]">{t.name}</span>
                     </div>
                     <button onClick={()=>{
                       const ids=t.id.replace('team-','').split('-');
@@ -1166,34 +1300,34 @@
         <div className="bg-white p-8 rounded-[3rem] border border-slate-200 shadow-2xl space-y-8 flex flex-col min-h-[600px] animate-fade-in">
           <div className="flex justify-between items-center border-b pb-4">
             <h3 className="text-2xl font-black text-slate-900 italic">Team Grouping.</h3>
-            <button onClick={autoGroup} className="text-xs font-black text-amber-500 uppercase hover:underline">자동 팀 구성</button>
+            <button onClick={autoGroup} className="text-sm font-black text-amber-500 uppercase hover:underline">자동 팀 구성</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-1">
             <div className="space-y-4">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">대기자 ({unassigned.length})</label>
+              <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">대기자 ({unassigned.length})</label>
               <div className="grid grid-cols-1 gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 {unassigned.map(p=><button key={p.id} onClick={()=>toggleMember(p)} className={`w-full p-4 rounded-xl border-2 transition-all text-left font-bold ${selMembers.find(m=>m.id===p.id)?'border-blue-500 bg-blue-50 scale-[1.02] shadow-md':'border-slate-100 bg-slate-50'}`}>{p.name}</button>)}
               </div>
               {selMembers.length>0&&(
                 <div className="pt-4 space-y-2">
-                  <input type="text" value={teamName} onChange={e=>setTeamName(e.target.value)} placeholder="팀 이름 (선택사항)" className="w-full p-3 border-2 border-slate-100 rounded-xl font-bold text-sm outline-none focus:border-blue-500"/>
-                  <button onClick={createTeam} className="w-full py-3 bg-blue-600 text-white rounded-xl font-black text-sm shadow-md">팀 생성 ({selMembers.length}명)</button>
+                  <input type="text" value={teamName} onChange={e=>setTeamName(e.target.value)} placeholder="팀 이름 (선택사항)" className="w-full p-3 border-2 border-slate-100 rounded-xl font-bold text-base outline-none focus:border-blue-500"/>
+                  <button onClick={createTeam} className="w-full py-3 bg-blue-600 text-white rounded-xl font-black text-base shadow-md">팀 생성 ({selMembers.length}명)</button>
                 </div>
               )}
             </div>
             <div className="md:col-span-2 space-y-4">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">구성된 팀 ({teams.length})</label>
+              <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">구성된 팀 ({teams.length})</label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                 {teams.map(t=>(
                   <div key={t.id} className={`flex flex-col p-4 border-2 rounded-2xl ${t.isSeeded?'bg-amber-50 border-amber-300':'bg-white border-slate-100'}`}>
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <button onClick={()=>setTeams(prev=>{const target=prev.find(x=>x.id===t.id);if(!target)return prev;const ns=!target.isSeeded;return prev.map(x=>x.id===t.id?{...x,isSeeded:ns,seedRank:ns?prev.filter(p=>p.isSeeded).length+1:undefined}:x);})} className={`w-8 h-8 rounded-full text-xs ${t.isSeeded?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>{t.isSeeded?'👑':'⭐'}</button>
-                        <span className="font-black text-slate-800 text-sm truncate max-w-[120px]">{t.name}</span>
+                        <button onClick={()=>setTeams(prev=>{const target=prev.find(x=>x.id===t.id);if(!target)return prev;const ns=!target.isSeeded;return prev.map(x=>x.id===t.id?{...x,isSeeded:ns,seedRank:ns?prev.filter(p=>p.isSeeded).length+1:undefined}:x);})} className={`w-8 h-8 rounded-full text-sm ${t.isSeeded?'bg-amber-500 text-white':'bg-slate-100 text-slate-400'}`}>{t.isSeeded?'👑':'⭐'}</button>
+                        <span className="font-black text-slate-800 text-base truncate max-w-[120px]">{t.name}</span>
                       </div>
                       <button onClick={()=>removeTeam(t.id)} className="text-slate-300 hover:text-red-500">✕</button>
                     </div>
-                    <div className="flex flex-wrap gap-1">{t.members.map(m=><span key={m.id} className="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold">{m.name}</span>)}</div>
+                    <div className="flex flex-wrap gap-1">{t.members.map(m=><span key={m.id} className="text-[11px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-bold">{m.name}</span>)}</div>
                   </div>
                 ))}
               </div>
@@ -1219,16 +1353,16 @@
         </div>
         <div className="space-y-8">
           <div className="space-y-4">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">1. 세부 경기 구성</label>
+            <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">1. 세부 경기 구성</label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {TEAM_FORMATS.map(f=><button key={f.id} onClick={()=>onSelectFormat(f.id)} className={`p-5 rounded-2xl border-2 text-left transition-all ${selectedFormat===f.id?'border-blue-500 bg-blue-50':'border-slate-100 hover:border-blue-200'}`}><p className="font-black text-lg text-slate-800">{f.name}</p><p className="text-xs text-slate-400 mt-1">{f.matches}경기 중 다승제</p></button>)}
+              {TEAM_FORMATS.map(f=><button key={f.id} onClick={()=>onSelectFormat(f.id)} className={`p-5 rounded-2xl border-2 text-left transition-all ${selectedFormat===f.id?'border-blue-500 bg-blue-50':'border-slate-100 hover:border-blue-200'}`}><p className="font-black text-lg text-slate-800">{f.name}</p><p className="text-sm text-slate-400 mt-1">{f.matches}경기 중 다승제</p></button>)}
             </div>
           </div>
           <div className="space-y-4">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">2. 라운드 수 (승리 조건)</label>
+            <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">2. 라운드 수 (승리 조건)</label>
             <div className="grid grid-cols-2 gap-4">
               {[{r:1,label:'1 라운드',sub:'단판 승부'},{r:3,label:'3 라운드',sub:'3판 2선승제'}].map(({r,label,sub})=>
-                <button key={r} onClick={()=>onSelectRounds(r)} className={`p-6 rounded-2xl border-2 text-center transition-all ${selectedRounds===r?'border-blue-500 bg-blue-50':'border-slate-100 hover:border-blue-200'}`}><p className="font-black text-xl text-slate-800">{label}</p><p className="text-xs text-slate-400 mt-1">{sub}</p></button>
+                <button key={r} onClick={()=>onSelectRounds(r)} className={`p-6 rounded-2xl border-2 text-center transition-all ${selectedRounds===r?'border-blue-500 bg-blue-50':'border-slate-100 hover:border-blue-200'}`}><p className="font-black text-xl text-slate-800">{label}</p><p className="text-sm text-slate-400 mt-1">{sub}</p></button>
               )}
             </div>
           </div>
@@ -1270,8 +1404,8 @@
         <div className="bg-white p-12 rounded-[3rem] border border-slate-200 shadow-2xl text-center space-y-12 max-w-2xl mx-auto animate-fade-in">
           <h3 className="text-3xl font-black text-slate-900 italic tracking-tight">Group Distribution.</h3>
           <div className="grid grid-cols-1 gap-4">
-            <button onClick={()=>setMode('auto')} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-blue-500 hover:bg-blue-50 text-left transition-all"><h4 className="font-black text-xl text-slate-800">🎲 자동 편성</h4><p className="text-sm text-slate-400 mt-1">시드 선수 분산 또는 완전 랜덤 배정</p></button>
-            <button onClick={()=>setMode('manual')} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all"><h4 className="font-black text-xl text-slate-800">✍️ 수동 편성</h4><p className="text-sm text-slate-400 mt-1">사용자가 직접 팀별로 조를 지정합니다.</p></button>
+            <button onClick={()=>setMode('auto')} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-blue-500 hover:bg-blue-50 text-left transition-all"><h4 className="font-black text-xl text-slate-800">🎲 자동 편성</h4><p className="text-base text-slate-400 mt-1">시드 선수 분산 또는 완전 랜덤 배정</p></button>
+            <button onClick={()=>setMode('manual')} className="p-8 border-2 border-slate-100 rounded-3xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all"><h4 className="font-black text-xl text-slate-800">✍️ 수동 편성</h4><p className="text-base text-slate-400 mt-1">사용자가 직접 팀별로 조를 지정합니다.</p></button>
           </div>
           <button onClick={onBack} className="text-slate-400 font-bold hover:underline">이전 단계로</button>
         </div>
@@ -1281,55 +1415,55 @@
           <div className="flex justify-between items-center border-b pb-4">
             <h3 className="text-2xl font-black text-slate-900 italic">Manual Grouping.</h3>
             <div className="flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-2xl">
-              <span className="text-[10px] font-black text-slate-400 uppercase">조 개수:</span>
+              <span className="text-[12px] font-black text-slate-400 uppercase">조 개수:</span>
               <button onClick={()=>setGc(Math.max(2,gc-1))} className="w-8 h-8 rounded-full bg-white text-slate-900 font-black shadow-sm border border-slate-200">-</button>
               <span className="font-black text-slate-900 text-lg">{gc}</span>
               <button onClick={()=>setGc(Math.min(16,gc+1))} className="w-8 h-8 rounded-full bg-white text-slate-900 font-black shadow-sm border border-slate-200">+</button>
             </div>
           </div>
           <div className="flex flex-wrap gap-2 py-2">
-            <span className="text-[10px] font-black text-slate-400 uppercase w-full mb-1">선택 이동 ({checked.size}명 선택됨)</span>
-            {mg.map((_,i)=><button key={i} onClick={()=>moveToGroup(i)} disabled={checked.size===0} className={`px-3 py-1.5 text-[10px] font-black rounded-lg border ${checked.size>0?'bg-blue-600 text-white border-blue-600 hover:bg-blue-700':'bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed'}`}>{String.fromCharCode(65+i)}조 선택 이동</button>)}
+            <span className="text-[12px] font-black text-slate-400 uppercase w-full mb-1">선택 이동 ({checked.size}명 선택됨)</span>
+            {mg.map((_,i)=><button key={i} onClick={()=>moveToGroup(i)} disabled={checked.size===0} className={`px-3 py-1.5 text-[12px] font-black rounded-lg border ${checked.size>0?'bg-blue-600 text-white border-blue-600 hover:bg-blue-700':'bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed'}`}>{String.fromCharCode(65+i)}조 선택 이동</button>)}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 flex-1 overflow-hidden">
             <div className="space-y-4">
               <div className="flex justify-between">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">대기 명단 ({unassigned.length})</label>
-                <button onClick={()=>checked.size===unassigned.length&&unassigned.length>0?setChecked(new Set()):setChecked(new Set(unassigned.map(p=>p.id)))} className="text-[9px] font-black text-blue-500 hover:underline">{checked.size===unassigned.length&&unassigned.length>0?'전체 해제':'전체 선택'}</button>
+                <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">대기 명단 ({unassigned.length})</label>
+                <button onClick={()=>checked.size===unassigned.length&&unassigned.length>0?setChecked(new Set()):setChecked(new Set(unassigned.map(p=>p.id)))} className="text-[11px] font-black text-blue-500 hover:underline">{checked.size===unassigned.length&&unassigned.length>0?'전체 해제':'전체 선택'}</button>
               </div>
               <div className="grid grid-cols-1 gap-2 overflow-y-auto max-h-[400px] pr-2 custom-scrollbar">
                 {unassigned.map(p=>(
                   <div key={p.id} onClick={()=>toggleCheck(p.id)} className={`flex items-center gap-3 w-full p-3 rounded-xl border-2 cursor-pointer ${checked.has(p.id)?'border-blue-500 bg-blue-50':'border-slate-100 bg-slate-50'}`}>
                     <input type="checkbox" checked={checked.has(p.id)} onChange={()=>{}} className="w-4 h-4 rounded"/>
-                    {p.gender&&<span className={`text-[9px] font-black px-1.5 py-0.5 rounded shrink-0 ${p.gender==='M'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700'}`}>{p.gender==='M'?'남':'여'}</span>}
-                    <span className="font-bold text-sm text-slate-700">{p.name}</span>
-                    {p.isSeeded&&<span className="text-[9px] bg-amber-100 text-amber-700 px-1 py-0.5 rounded font-black ml-auto shrink-0">S{p.seedRank}</span>}
+                    {p.gender&&<span className={`text-[11px] font-black px-1.5 py-0.5 rounded shrink-0 ${p.gender==='M'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700'}`}>{p.gender==='M'?'남':'여'}</span>}
+                    <span className="font-bold text-base text-slate-700">{p.name}</span>
+                    {p.isSeeded&&<span className="text-[11px] bg-amber-100 text-amber-700 px-1 py-0.5 rounded font-black ml-auto shrink-0">S{p.seedRank}</span>}
                   </div>
                 ))}
-                {unassigned.length===0&&<div className="text-center py-10 text-slate-300 text-xs font-bold italic">모두 배정되었습니다.</div>}
+                {unassigned.length===0&&<div className="text-center py-10 text-slate-300 text-sm font-bold italic">모두 배정되었습니다.</div>}
               </div>
             </div>
             <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[500px] pr-2 custom-scrollbar">
               {mg.map((g,i)=>(
                 <div key={i} className="bg-slate-50 border-2 border-slate-100 rounded-2xl p-4">
                   <div className="flex items-center justify-between border-b mb-3 pb-1">
-                    <h4 className="font-black text-slate-800 text-xs">{String.fromCharCode(65+i)}조 ({g.length})</h4>
-                    {g.length>0&&<span className="text-[9px] text-slate-400 font-bold">
+                    <h4 className="font-black text-slate-800 text-sm">{String.fromCharCode(65+i)}조 ({g.length})</h4>
+                    {g.length>0&&<span className="text-[11px] text-slate-400 font-bold">
                       남{g.filter(p=>p.gender==='M').length} / 여{g.filter(p=>p.gender==='F').length}
                     </span>}
                   </div>
                   <div className="space-y-1">
                     {g.map(p=>(
-                      <div key={p.id} className="flex justify-between items-center bg-white p-2 rounded-lg text-xs font-bold border border-slate-100">
+                      <div key={p.id} className="flex justify-between items-center bg-white p-2 rounded-lg text-sm font-bold border border-slate-100">
                         <div className="flex items-center gap-1.5">
-                          {p.gender&&<span className={`text-[8px] font-black px-1 py-0.5 rounded shrink-0 ${p.gender==='M'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700'}`}>{p.gender==='M'?'남':'여'}</span>}
+                          {p.gender&&<span className={`text-[10px] font-black px-1 py-0.5 rounded shrink-0 ${p.gender==='M'?'bg-blue-100 text-blue-700':'bg-rose-100 text-rose-700'}`}>{p.gender==='M'?'남':'여'}</span>}
                           <span className="text-slate-700">{p.name}</span>
-                          {p.isSeeded&&<span className="text-[8px] bg-amber-100 text-amber-600 px-1 py-0.5 rounded font-black">S{p.seedRank}</span>}
+                          {p.isSeeded&&<span className="text-[10px] bg-amber-100 text-amber-600 px-1 py-0.5 rounded font-black">S{p.seedRank}</span>}
                         </div>
                         <button onClick={()=>removeFromGroup(p,i)} className="text-slate-300 hover:text-red-500 shrink-0">✕</button>
                       </div>
                     ))}
-                    {g.length===0&&<div className="text-center py-4 text-slate-200 text-[10px] font-bold italic">배정된 팀 없음</div>}
+                    {g.length===0&&<div className="text-center py-4 text-slate-200 text-[12px] font-bold italic">배정된 팀 없음</div>}
                   </div>
                 </div>
               ))}
@@ -1346,7 +1480,7 @@
         <div className="bg-white p-12 rounded-[3rem] border border-slate-200 shadow-2xl text-center space-y-12 max-w-xl mx-auto animate-fade-in">
           <h3 className="text-3xl font-black text-slate-900 italic">Auto Distribution.</h3>
           <div className="flex flex-col items-center gap-4">
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">조 개수 선택</label>
+            <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">조 개수 선택</label>
             <div className="flex items-center gap-6 bg-slate-100 px-6 py-4 rounded-[2rem]">
               <button onClick={()=>setGc(Math.max(2,gc-1))} className="w-12 h-12 rounded-full bg-white font-black shadow-md border border-slate-200 text-xl">-</button>
               <span className="font-black text-slate-900 text-3xl">{gc}</span>
@@ -1477,7 +1611,7 @@
           <span className="text-6xl">🏆</span>
           <h2 className="text-3xl font-black text-center">{wonA>wonB?nameA:nameB} 승!</h2>
           <p className="text-slate-400 font-bold text-xl">{wonA} : {wonB} 세트</p>
-          <p className="text-slate-500 text-sm">결과가 저장됐습니다.</p>
+          <p className="text-slate-500 text-base">결과가 저장됐습니다.</p>
         </div>
       );
 
@@ -1486,12 +1620,12 @@
           {/* 상단 — 대회명 + 닫기 (얇게) */}
           <div className="bg-slate-800 px-6 py-2 flex justify-between items-center shrink-0 gap-4">
             <div className="min-w-0 flex items-baseline gap-3">
-              <p className="text-xs font-black text-slate-300 truncate">{config?.name}</p>
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{sm?`${totalSets===1?'단판':totalSets+'판 '+winSets+'선승'}`:''} {match.court?`· ${match.court}코트`:''}</p>
+              <p className="text-sm font-black text-slate-300 truncate">{config?.name}</p>
+              <p className="text-[12px] font-black text-slate-500 uppercase tracking-widest">{sm?`${totalSets===1?'단판':totalSets+'판 '+winSets+'선승'}`:''} {match.court?`· ${match.court}코트`:''}</p>
             </div>
             {onClose&&(
               <button onClick={onClose}
-                className="w-9 h-9 rounded-full bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center text-base active:scale-90 transition-all shrink-0" title="닫기">✕</button>
+                className="w-9 h-9 rounded-full bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center text-lg active:scale-90 transition-all shrink-0" title="닫기">✕</button>
             )}
           </div>
 
@@ -1514,18 +1648,18 @@
                 <div className={`font-black tabular-nums leading-none ${getScoreColor(true)}`} style={{fontSize:'min(38vw,24rem)'}}>
                   {scoreA}
                 </div>
-                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
+                <div className="text-[12px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
               </button>
 
               {/* A 세트 승수 — 가운데, 노란색 */}
               <div className="flex flex-col items-center justify-center px-4 md:px-8 bg-slate-950/50">
-                <p className="text-[9px] font-black text-amber-300/60 uppercase tracking-widest mb-2">세트</p>
+                <p className="text-[11px] font-black text-amber-300/60 uppercase tracking-widest mb-2">세트</p>
                 <div className="font-black text-amber-300 tabular-nums leading-none" style={{fontSize:'min(14vw,9rem)'}}>{wonA}</div>
               </div>
 
               {/* B 세트 승수 — 가운데, 노란색 */}
               <div className="flex flex-col items-center justify-center px-4 md:px-8 bg-slate-950/50">
-                <p className="text-[9px] font-black text-amber-300/60 uppercase tracking-widest mb-2">세트</p>
+                <p className="text-[11px] font-black text-amber-300/60 uppercase tracking-widest mb-2">세트</p>
                 <div className="font-black text-amber-300 tabular-nums leading-none" style={{fontSize:'min(14vw,9rem)'}}>{wonB}</div>
               </div>
 
@@ -1535,7 +1669,7 @@
                 <div className={`font-black tabular-nums leading-none ${getScoreColor(false)}`} style={{fontSize:'min(38vw,24rem)'}}>
                   {scoreB}
                 </div>
-                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
+                <div className="text-[12px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
               </button>
             </div>
           ) : (
@@ -1544,12 +1678,12 @@
               <button onPointerDown={()=>adj('A',1)}
                 className={`flex flex-col items-center justify-center active:bg-blue-900/40 transition-colors ${matchOver&&wonA>wonB?'bg-green-900/15':''}`}>
                 <div className={`font-black tabular-nums leading-none ${getScoreColor(true)}`} style={{fontSize:'min(45vw,28rem)'}}>{scoreA}</div>
-                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
+                <div className="text-[12px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
               </button>
               <button onPointerDown={()=>adj('B',1)}
                 className={`flex flex-col items-center justify-center active:bg-rose-900/40 transition-colors ${matchOver&&wonB>wonA?'bg-green-900/15':''}`}>
                 <div className={`font-black tabular-nums leading-none ${getScoreColor(false)}`} style={{fontSize:'min(45vw,28rem)'}}>{scoreB}</div>
-                <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
+                <div className="text-[12px] font-black text-slate-500 uppercase tracking-widest mt-4">탭하여 +1</div>
               </button>
             </div>
           )}
@@ -1567,7 +1701,7 @@
               <div className="flex gap-3 justify-center flex-wrap">
                 {history.map((s,i)=>(
                   <div key={i} className="text-center bg-slate-900 px-3 py-1 rounded-lg">
-                    <p className="text-[9px] text-slate-400 font-black uppercase">{i+1}세트</p>
+                    <p className="text-[11px] text-slate-400 font-black uppercase">{i+1}세트</p>
                     <p className={`text-lg font-black ${s.a>s.b?'text-green-400':'text-rose-400'}`}>{s.a} : {s.b}</p>
                   </div>
                 ))}
@@ -1612,6 +1746,7 @@
       const [selectedMatch, setSelectedMatch]               = useState(null);
       const [selectedLeagueMatch, setSelectedLeagueMatch]   = useState(null);
       const [scoreboardMatch, setScoreboardMatch]           = useState(null); // 스코어보드 모드
+      const [showAttendance, setShowAttendance]             = useState(false); // 출결 모달
       const saveTimerRef      = useRef(null);
       const remoteUpdateRef   = useRef(false);
       const isGroupType = config.tournamentType===TType.GROUP_KNOCKOUT||config.tournamentType===TType.GROUP_LEAGUE;
@@ -1820,6 +1955,39 @@
         setView('scoreboard');
       };
 
+      // 🚫 출결 토글 — 참가자의 absent 상태 변경 (activeParticipants + 조 안의 participants + 매치의 home/away)
+      const handleToggleAttendance=(pid)=>{
+        // activeParticipants 업데이트
+        setActiveParticipants(prev=>prev.map(p=>p.id===pid?{...p,absent:!p.absent}:p));
+        // 조별 모드: 각 조의 participants 안에서도 갱신 + 매치의 home/away도 갱신 (UI 빠른 반영)
+        setGeneratedGroups(prev=>prev.map(g=>{
+          let changed=false;
+          const newP=(g.participants||[]).map(p=>{
+            if(p.id===pid){changed=true;return{...p,absent:!p.absent};}
+            return p;
+          });
+          // 매치의 home/away에 absent 반영
+          const newRounds=(g.rounds||[]).map(r=>({
+            ...r,
+            matches:(r.matches||[]).map(m=>({
+              ...m,
+              home: m.home.id===pid?{...m.home,absent:!m.home.absent}:m.home,
+              away: m.away.id===pid?{...m.away,absent:!m.away.absent}:m.away
+            }))
+          }));
+          return changed?{...g,participants:newP,rounds:newRounds}:g;
+        }));
+        // 풀리그 모드: generatedLeague의 매치들도 갱신
+        setGeneratedLeague(prev=>prev.map(r=>({
+          ...r,
+          matches:(r.matches||[]).map(m=>({
+            ...m,
+            home: m.home.id===pid?{...m.home,absent:!m.home.absent}:m.home,
+            away: m.away.id===pid?{...m.away,absent:!m.away.absent}:m.away
+          }))
+        })));
+      };
+
       // 대시보드로 나가기 전 즉시 저장 (300ms 디바운스 취소 방지)
       const goToDashboard=()=>{
         if(currentId&&view==='active'){
@@ -1980,7 +2148,7 @@
       if(loading) return (
         <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center gap-4">
           <span className="text-5xl animate-bounce">🏁</span>
-          <p className="font-black text-slate-400 uppercase tracking-widest text-sm">Loading MatchMaker...</p>
+          <p className="font-black text-slate-400 uppercase tracking-widest text-base">Loading MatchMaker...</p>
         </div>
       );
 
@@ -2011,15 +2179,16 @@
                 <h1 className="text-xl font-black text-slate-900 tracking-tighter uppercase">MatchMaker</h1>
               </button>
               <div className="flex items-center gap-3">
-                {saving&&<span className="text-[10px] font-black text-slate-400 animate-pulse uppercase">저장 중...</span>}
+                {saving&&<span className="text-[12px] font-black text-slate-400 animate-pulse uppercase">저장 중...</span>}
                 {view==='active'&&(
                   <>
-                    {<button onClick={handleShareCurrent} className="bg-blue-600 text-white px-3 py-2 rounded-xl font-black text-xs hover:bg-blue-700 shadow-md active:scale-95">🔗 공유</button>}
-                    {<button onClick={handleExportToSheets} className="bg-emerald-600 text-white px-3 py-2 rounded-xl font-black text-xs hover:bg-emerald-700 shadow-md active:scale-95">📊 시트 내보내기</button>}
-                    <button onClick={downloadCSV} className="bg-slate-900 text-white px-3 py-2 rounded-xl font-black text-xs hover:bg-slate-800 shadow-md active:scale-95">💾 CSV</button>
+                    {<button onClick={()=>setShowAttendance(true)} className="bg-amber-500 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-amber-600 shadow-md active:scale-95">🚫 출결{activeParticipants.filter(p=>p.absent).length>0?` (${activeParticipants.filter(p=>p.absent).length})`:''}</button>}
+                    {<button onClick={handleShareCurrent} className="bg-blue-600 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-blue-700 shadow-md active:scale-95">🔗 공유</button>}
+                    {<button onClick={handleExportToSheets} className="bg-emerald-600 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-emerald-700 shadow-md active:scale-95">📊 시트 내보내기</button>}
+                    <button onClick={downloadCSV} className="bg-slate-900 text-white px-3 py-2 rounded-xl font-black text-sm hover:bg-slate-800 shadow-md active:scale-95">💾 CSV</button>
                   </>
                 )}
-                {view==='share'&&<span className="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl font-black text-xs border border-blue-100 italic">Shared Content (읽기 전용)</span>}
+                {view==='share'&&<span className="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl font-black text-sm border border-blue-100 italic">Shared Content (읽기 전용)</span>}
               </div>
             </div>
           </header>
@@ -2032,7 +2201,7 @@
                 <div className="flex justify-between items-end flex-wrap gap-4">
                   <div className="space-y-2">
                     <h2 className="text-4xl font-black text-slate-900 italic tracking-tighter">My Competitions.</h2>
-                    <button onClick={()=>setShowArchived(!showArchived)} className="text-sm font-bold text-blue-600 hover:underline">{showArchived?'← 활성 대회 보기':'📁 보관된 대회 보기'}</button>
+                    <button onClick={()=>setShowArchived(!showArchived)} className="text-base font-bold text-blue-600 hover:underline">{showArchived?'← 활성 대회 보기':'📁 보관된 대회 보기'}</button>
                   </div>
                   <div className="flex gap-3 flex-wrap items-center">
                     <button onClick={()=>{
@@ -2049,7 +2218,7 @@
                           alert(`✅ ${count}개 대회를 Firebase로 가져왔습니다!\n페이지를 새로고침하면 목록에 표시됩니다.`);
                         })
                         .catch(()=>alert('가져오기 실패. 다시 시도해주세요.'));
-                    }} className="text-xs font-black text-amber-700 bg-amber-50 border border-amber-200 px-4 py-2 rounded-xl hover:bg-amber-100">
+                    }} className="text-sm font-black text-amber-700 bg-amber-50 border border-amber-200 px-4 py-2 rounded-xl hover:bg-amber-100">
                       📥 시트 대회 가져오기
                     </button>
                     {!showArchived&&<button onClick={startNew} className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-lg hover:bg-blue-700 shadow-xl shadow-blue-100">+ 새 대회</button>}
@@ -2060,24 +2229,24 @@
                     <div key={t.id} className="bg-white rounded-[2.5rem] border-2 border-slate-100 p-8 hover:border-blue-400 hover:shadow-xl transition-all flex flex-col group relative overflow-hidden">
                       <span className="text-4xl">{SPORTS_LIST.find(s=>s.id===t.config?.sport)?.icon}</span>
                       <h3 className="text-xl font-black text-slate-900 mt-4 truncate">{t.config?.name||'무제'}</h3>
-                      <p className="text-[10px] font-black text-slate-400 uppercase mt-1">{t.config?.tournamentType} / {t.config?.matchType}</p>
+                      <p className="text-[12px] font-black text-slate-400 uppercase mt-1">{t.config?.tournamentType} / {t.config?.matchType}</p>
                       {isSetsGame(t.config?.sport)&&(
-                        <p className="text-[10px] font-black text-blue-500 uppercase mt-1">
+                        <p className="text-[12px] font-black text-blue-500 uppercase mt-1">
                           {(t.config?.sets||3)===1?'단판제':`${t.config?.sets||3}판 ${Math.ceil((t.config?.sets||3)/2)}선승`}
                         </p>
                       )}
                       <div className="mt-8 grid grid-cols-2 gap-2">
                         {t.isArchived?(
                           <>
-                            <button onClick={()=>loadTournamentData(t)} className="bg-slate-900 text-white py-2.5 rounded-xl font-black text-xs hover:bg-slate-800 col-span-2">관리</button>
-                            <button onClick={(e)=>toggleArchive(t.id,e)} className="bg-slate-50 text-slate-500 py-2.5 rounded-xl font-black text-xs hover:bg-slate-200">보관 해제</button>
-                            <button onClick={(e)=>handleDelete(t.id,e)} className="bg-red-50 text-red-500 py-2.5 rounded-xl font-black text-xs hover:bg-red-100">삭제</button>
+                            <button onClick={()=>loadTournamentData(t)} className="bg-slate-900 text-white py-2.5 rounded-xl font-black text-sm hover:bg-slate-800 col-span-2">관리</button>
+                            <button onClick={(e)=>toggleArchive(t.id,e)} className="bg-slate-50 text-slate-500 py-2.5 rounded-xl font-black text-sm hover:bg-slate-200">보관 해제</button>
+                            <button onClick={(e)=>handleDelete(t.id,e)} className="bg-red-50 text-red-500 py-2.5 rounded-xl font-black text-sm hover:bg-red-100">삭제</button>
                           </>
                         ):(
                           <>
-                            <button onClick={()=>loadTournamentData(t)} className="bg-slate-900 text-white py-2.5 rounded-xl font-black text-xs hover:bg-slate-800">관리</button>
-                            <button onClick={(e)=>handleShare(t,e)} className="bg-blue-50 text-blue-600 py-2.5 rounded-xl font-black text-xs hover:bg-blue-100">공유</button>
-                            <button onClick={(e)=>toggleArchive(t.id,e)} className="bg-slate-50 text-slate-500 py-2.5 rounded-xl font-black text-xs hover:bg-slate-200 col-span-2">보관함으로</button>
+                            <button onClick={()=>loadTournamentData(t)} className="bg-slate-900 text-white py-2.5 rounded-xl font-black text-sm hover:bg-slate-800">관리</button>
+                            <button onClick={(e)=>handleShare(t,e)} className="bg-blue-50 text-blue-600 py-2.5 rounded-xl font-black text-sm hover:bg-blue-100">공유</button>
+                            <button onClick={(e)=>toggleArchive(t.id,e)} className="bg-slate-50 text-slate-500 py-2.5 rounded-xl font-black text-sm hover:bg-slate-200 col-span-2">보관함으로</button>
                           </>
                         )}
                       </div>
@@ -2086,7 +2255,7 @@
                           <span className="font-black text-lg">✕</span>
                         </button>
                       )}
-                      {t.isCompleted&&<div className="absolute top-6 right-16 bg-green-100 text-green-700 text-[9px] font-black px-2 py-1 rounded-full uppercase">Finished</div>}
+                      {t.isCompleted&&<div className="absolute top-6 right-16 bg-green-100 text-green-700 text-[11px] font-black px-2 py-1 rounded-full uppercase">Finished</div>}
                     </div>
                   ))}
                   {userTournaments.filter(t=>!!t.isArchived===showArchived).length===0&&(
@@ -2105,10 +2274,10 @@
                   <div>
                     <h2 className="text-3xl font-black text-slate-900 italic tracking-tight">{config.name||'무제'}</h2>
                     <div className="flex gap-2 mt-2 flex-wrap">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[10px] font-black uppercase tracking-tighter">{config.tournamentType===TType.GROUP_LEAGUE?'조별 풀리그':config.tournamentType}</span>
-                      <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-[10px] font-black uppercase tracking-tighter">{config.matchType}</span>
+                      <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-[12px] font-black uppercase tracking-tighter">{config.tournamentType===TType.GROUP_LEAGUE?'조별 풀리그':config.tournamentType}</span>
+                      <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-[12px] font-black uppercase tracking-tighter">{config.matchType}</span>
                       {isSetsGame(config.sport)&&(
-                        <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[10px] font-black uppercase tracking-tighter">
+                        <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[12px] font-black uppercase tracking-tighter">
                           {(config.sets||3)===1?'단판제':`${config.sets||3}판 ${Math.ceil((config.sets||3)/2)}선승`}
                         </span>
                       )}
@@ -2116,8 +2285,8 @@
                   </div>
                   {view!=='share'&&(
                     <div className="flex gap-2">
-                      <button onClick={()=>{setStep(1);setView('setup');}} className="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl font-black text-xs hover:bg-slate-200">🛠️ 설정 수정</button>
-                      <button onClick={()=>{setStep(2);setView('setup');}} className="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl font-black text-xs hover:bg-slate-200">👥 명단 수정</button>
+                      <button onClick={()=>{setStep(1);setView('setup');}} className="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl font-black text-sm hover:bg-slate-200">🛠️ 설정 수정</button>
+                      <button onClick={()=>{setStep(2);setView('setup');}} className="bg-slate-100 text-slate-600 px-4 py-2 rounded-xl font-black text-sm hover:bg-slate-200">👥 명단 수정</button>
                     </div>
                   )}
                 </div>
@@ -2130,7 +2299,7 @@
                       <div className="bg-white p-10 rounded-[3rem] border border-slate-200 shadow-sm">
                         <div className="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4 border-b border-slate-100 pb-6">
                           <h4 className="font-black text-slate-400 uppercase tracking-widest">Knockout Stage (본선)</h4>
-                          {view!=='share'&&<button onClick={handleRandomDraw} className="bg-amber-500 text-white px-6 py-2 rounded-xl font-black text-xs hover:bg-amber-600 shadow-md active:scale-95">🎲 본선 대진 추첨 (랜덤)</button>}
+                          {view!=='share'&&<button onClick={handleRandomDraw} className="bg-amber-500 text-white px-6 py-2 rounded-xl font-black text-sm hover:bg-amber-600 shadow-md active:scale-95">🎲 본선 대진 추첨 (랜덤)</button>}
                         </div>
                         <BracketView matches={generatedMatches} onMatchClick={m=>view!=='share'&&setSelectedMatch(m)} onScoreboardLink={view!=='share'?handleScoreboardLink:null}/>
                       </div>
@@ -2146,7 +2315,7 @@
                 {step===1&&(
                   <section className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-8">
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">1. 대회 기본 정보</label>
+                      <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">1. 대회 기본 정보</label>
                       <input type="text" value={config.name} onChange={e=>setConfig({...config,name:e.target.value})} placeholder="대회명을 입력하세요" className="w-full text-2xl font-black py-4 border-b-2 border-slate-100 focus:border-blue-500 outline-none"/>
                       <div className="grid grid-cols-2 gap-4">
                         <select value={config.sport} onChange={e=>setConfig({...config,sport:e.target.value})} className="p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold">
@@ -2158,23 +2327,23 @@
                       </div>
                     </div>
                     <div className="space-y-4">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">2. 경기 방식</label>
+                      <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">2. 경기 방식</label>
                       <div className="grid grid-cols-2 gap-3">
                         {[TType.TOURNAMENT,TType.LEAGUE,TType.GROUP_KNOCKOUT,TType.GROUP_LEAGUE].map(t=>(
                           <button key={t} onClick={()=>setConfig({...config,tournamentType:t})} className={`p-4 rounded-2xl border-2 text-left transition-all ${config.tournamentType===t?'border-blue-500 bg-blue-50 text-blue-700':'border-slate-100 text-slate-500 hover:border-blue-200'}`}>
-                            <p className="font-black text-sm">{t==='TOURNAMENT'?'토너먼트':(t==='LEAGUE'?'풀리그':(t==='GROUP_KNOCKOUT'?'리그+본선':'조별 풀리그'))}</p>
+                            <p className="font-black text-base">{t==='TOURNAMENT'?'토너먼트':(t==='LEAGUE'?'풀리그':(t==='GROUP_KNOCKOUT'?'리그+본선':'조별 풀리그'))}</p>
                           </button>
                         ))}
                       </div>
                     </div>
                     {isSetsGame(config.sport)&&(
                       <div className="space-y-4">
-                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">3. 세트 방식 <span className="text-slate-300">({SPORTS_LIST.find(s=>s.id===config.sport)?.name})</span></label>
+                        <label className="text-[12px] font-black text-slate-400 uppercase tracking-widest">3. 세트 방식 <span className="text-slate-300">({SPORTS_LIST.find(s=>s.id===config.sport)?.name})</span></label>
                         <div className="grid grid-cols-3 gap-3">
                           {SETS_OPTIONS.map(o=>(
                             <button key={o.value} onClick={()=>setConfig({...config,sets:o.value})} className={`p-4 rounded-2xl border-2 text-center transition-all ${(config.sets||3)===o.value?'border-blue-500 bg-blue-50 text-blue-700':'border-slate-100 text-slate-500 hover:border-blue-200'}`}>
-                              <p className="font-black text-sm">{o.label}</p>
-                              <p className="text-[10px] text-slate-400 mt-0.5">{o.sub}</p>
+                              <p className="font-black text-base">{o.label}</p>
+                              <p className="text-[12px] text-slate-400 mt-0.5">{o.sub}</p>
                             </button>
                           ))}
                         </div>
@@ -2190,8 +2359,8 @@
                       <div className="flex items-center gap-2">
                         <span className="text-xl">📊</span>
                         <div>
-                          <p className="text-sm font-black text-emerald-800">구글 시트로 명단 관리</p>
-                          <p className="text-[10px] text-emerald-600 font-medium">[명단] {config.name||'대회명'} 시트에서 직접 편집 후 불러오기</p>
+                          <p className="text-base font-black text-emerald-800">구글 시트로 명단 관리</p>
+                          <p className="text-[12px] text-emerald-600 font-medium">[명단] {config.name||'대회명'} 시트에서 직접 편집 후 불러오기</p>
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-2">
@@ -2200,7 +2369,7 @@
                           gasCall('createParticipantSheet',{tournamentName:config.name})
                             .then(r=>alert(`✅ "${r.sheetName}" 시트가 생성됐습니다!\n스프레드시트를 열어 명단을 입력한 뒤\n"시트에서 불러오기"를 눌러주세요.`))
                             .catch(e=>{console.error('[createSheet]',e);alert('❌ 시트 생성 실패\n\n'+e.message);});
-                        }} className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl font-black text-xs hover:bg-emerald-700 min-w-[100px]">
+                        }} className="flex-1 py-2.5 bg-emerald-600 text-white rounded-xl font-black text-sm hover:bg-emerald-700 min-w-[100px]">
                           📋 명단 시트 만들기
                         </button>
                         <button onClick={()=>{
@@ -2225,7 +2394,7 @@
                               alert(`✅ ${newParts.length}명 불러오기 완료!\n남: ${newParts.filter(p=>p.gender==='M').length}명 / 여: ${newParts.filter(p=>p.gender==='F').length}명`);
                             })
                             .catch(e=>{console.error('[loadSheet]',e);alert('❌ 불러오기 실패\n\n'+e.message);});
-                        }} className="flex-1 py-2.5 bg-white text-emerald-700 border-2 border-emerald-300 rounded-xl font-black text-xs hover:bg-emerald-50 min-w-[100px]">
+                        }} className="flex-1 py-2.5 bg-white text-emerald-700 border-2 border-emerald-300 rounded-xl font-black text-sm hover:bg-emerald-50 min-w-[100px]">
                           ⬇️ 시트에서 불러오기
                         </button>
                         {participants.length>0&&(
@@ -2233,7 +2402,7 @@
                             gasCall('saveParticipantsToSheet',{tournamentName:config.name,participants:JSON.stringify(participants)})
                               .then(r=>alert(`✅ "${r.sheetName}" 에 ${r.count}명 저장됐습니다!`))
                               .catch(()=>alert('저장에 실패했습니다.'));
-                          }} className="flex-1 py-2.5 bg-white text-slate-600 border-2 border-slate-200 rounded-xl font-black text-xs hover:bg-slate-50 min-w-[100px]">
+                          }} className="flex-1 py-2.5 bg-white text-slate-600 border-2 border-slate-200 rounded-xl font-black text-sm hover:bg-slate-50 min-w-[100px]">
                             ⬆️ 시트에 저장
                           </button>
                         )}
@@ -2272,6 +2441,7 @@
           {/* Modals */}
           {selectedMatch&&<MatchResultModal match={selectedMatch} config={config} onClose={()=>setSelectedMatch(null)} onSave={handleUpdateMatch}/>}
           {selectedLeagueMatch&&<LeagueMatchModal match={selectedLeagueMatch.match} config={config} onClose={()=>setSelectedLeagueMatch(null)} onSave={handleUpdateLeagueMatch}/>}
+          {showAttendance&&<AttendanceModal participants={activeParticipants} onToggle={handleToggleAttendance} onClose={()=>setShowAttendance(false)}/>}
         </div>
       );
     };
